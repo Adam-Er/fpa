@@ -4,24 +4,19 @@
 <h1>Query 1</h1>
 <div class="table #main-container">
 	<table id="example" class="display">
-		<thead>
 		<tr>
 			<% @results.fetch(0).each do |row, index| %>
-			<th>
-				<%= row%>
-			</th>
+				<th> <%= row%>	</th>
 			<% end %>		  
-
 		</tr>
-		</thead>
-		<tbody>
+	
 		  <% @results.each_with_index do |row, index| %>
-		    <tr>
+		    
 		      <% row.each_with_index do |value, ind| %>
 		        <td> <%= value[1] %> </td>
 		      <% end %>
 		    </tr>
 		  <% end %>
-		</tbody>
+		
 	</table>
 </div>
