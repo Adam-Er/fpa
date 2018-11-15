@@ -1,0 +1,15 @@
+// This is the site's default CSS.
+// <%= stylesheet_link_tag    'default', media: 'all' %>
+
+body {
+	font-size: 14px;
+	background-color: #17445c !important;
+	height: 100vh;
+}
+
+#main-container {
+	background-color: #d6deea;
+	height: 86vh;
+	margin-top: 7vh;
+	margin-bottom: 7vh;
+}

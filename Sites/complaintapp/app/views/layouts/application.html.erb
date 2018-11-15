@@ -4,11 +4,14 @@
     <title>Complaintapp</title>
     <%= csrf_meta_tags %>
 
+	<%= stylesheet_link_tag    'default', media: 'all' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+  	<div id = "main-container" class="container rounded">
+    	<%= yield %>
+	</div>
   </body>
 </html>

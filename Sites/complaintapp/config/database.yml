@@ -13,5 +13,5 @@ default: &default
 development:
   adapter: oracle_enhanced
   database: oracle.cise.ufl.edu/orcl
-  username: # Username here
-  password: # Password here
+  username: camoen
+  password: dolphin5
