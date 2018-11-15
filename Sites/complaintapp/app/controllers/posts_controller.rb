@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 	
 	def query_directory
 	end
+	
 
 	def query1
 		p = ActiveRecord::Base.establish_connection
@@ -16,6 +17,7 @@ class PostsController < ApplicationController
 		# @results.close
 
 		@results = c.exec_query("select distinct name from camoen.complaint where rownum <= 10").to_a
+		@results = Payment.find_by_sql("select distinct name from camoen.complaint where rownum <= 10");
 		# results.each do |result|
 		#   	puts result[0]
 		# end

@@ -1,2 +1,4 @@
 # ignore a single file
 database.yml
+*.yml
+Sites/complaintapp/config/database.yml
