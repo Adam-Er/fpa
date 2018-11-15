@@ -2,5 +2,26 @@
 <%-# http://localhost:3000/posts/query1 -%>
 <%= link_to "Home", 'query_directory' %>
 <h1>Query 1</h1>
-<%= debug @results%>
+<div class="table #main-container">
+	<table id="example" class="display">
+		<thead>
+		<tr>
+			<% @results.fetch(0).each do |row, index| %>
+			<th>
+				<%= row%>
+			</th>
+			<% end %>		  
 
+		</tr>
+		</thead>
+		<tbody>
+		  <% @results.each_with_index do |row, index| %>
+		    <tr>
+		      <% row.each_with_index do |value, ind| %>
+		        <td> <%= value[1] %> </td>
+		      <% end %>
+		    </tr>
+		  <% end %>
+		</tbody>
+	</table>
+</div>

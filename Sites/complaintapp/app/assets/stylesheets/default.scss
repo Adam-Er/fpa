@@ -28,3 +28,14 @@ body {
   border-left: 1px solid #CCCCCC;
   margin: 0 auto;
 }
+
+.table {
+	width:100vw;
+	height:70vh;
+	border-collapse:collapse;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:left;
+	font-family:Arial;
+	overflow-y:auto;
+}
