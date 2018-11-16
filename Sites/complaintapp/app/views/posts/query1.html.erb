@@ -1,8 +1,8 @@
 <%-# This is the Query Directory page. -%>
 <%-# http://localhost:3000/posts/query1 -%>
-<%= link_to "Home", 'query_directory' %>
+
 <h1>Query 1</h1>
-<div class="table #main-container">
+<div class="table">
 	<table id="example" class="display">
 		<tr>
 			<% @results.fetch(0).each do |row, index| %>
@@ -19,4 +19,9 @@
 		  <% end %>
 		
 	</table>
+</div>
+
+
+<div class="btn btn-primary">
+	<%= link_to "New Query", 'query_directory', id: 'btn_link' %>
 </div>

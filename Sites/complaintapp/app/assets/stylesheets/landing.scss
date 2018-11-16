@@ -1,0 +1,10 @@
+// This is CSS for the landing page.
+// <%= stylesheet_link_tag    'landing', media: 'all' %>
+
+#main-container {
+	height: 86vh;
+	margin-top: 7vh;
+	margin-bottom: 7vh;
+}
+// TODO: For some reason the margin-top carries over into other pages until refresh.
+// This probably has something to do with SASS compiling all the CSS files on initial load.

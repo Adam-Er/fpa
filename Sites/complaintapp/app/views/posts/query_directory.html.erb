@@ -1,8 +1,9 @@
-<%= link_to "Log-in", root_path %>
-<%-# This is the Query Directory page. -%>
-<%-# http://localhost:3000/posts/query_directory -%>
+<%# This is the Query Directory page. -%>
+<%# http://localhost:3000/posts/query_directory -%>
 
 <h1>Query Directory Page</h1>
 <%#= debug @results%>
 
-<%= link_to "Query1", 'query1', class: 'button' %>
+<div class="btn btn-primary">
+	<%= link_to "Query1", 'query1', id: 'btn_link' %>
+</div>

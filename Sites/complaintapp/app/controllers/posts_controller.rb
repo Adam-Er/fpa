@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 	def index
+		render :layout => "landing_page"
 	end
 	
 	def query_directory
