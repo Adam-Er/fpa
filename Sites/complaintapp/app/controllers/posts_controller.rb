@@ -30,4 +30,7 @@ class PostsController < ApplicationController
 		
 	end
 
+	def custom_search
+	end
+
 end

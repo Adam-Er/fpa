@@ -7,15 +7,13 @@ body {
 	height: 100vh;
 }
 
-a {
-	//color: white !important;
-	//font-weight: bold;
-}
-
 #btn_link {
 	color: white ;
 }
 
+#custom_search {
+	margin-top: 2vh;
+}
 
 #main-container {
 	background-color: #d6deea;
@@ -23,10 +21,6 @@ a {
 	margin-top: 2vh;
 	margin-bottom: 7vh;
 
-}
-
-.landing_pg {
-	padding-top: 5vh;
 }
 
 .button {
@@ -43,6 +37,10 @@ a {
   margin: 0 auto;
 }
 
+.landing_pg {
+	padding-top: 5vh;
+}
+
 .table {
 	width:100vw;
 	height:70vh;
@@ -54,5 +52,6 @@ a {
 	font-family:Arial;
 	overflow-y:auto;
 }
+
 tr:nth-child(even) {background-color:black}
 tr:nth-child(odd) {background-color:#181b2f}

@@ -13,26 +13,23 @@
  	<nav class="navbar py-md-1 navbar-expand-sm navbar-dark bg-dark">
  		<a class="navbar-brand" href="#">FPA</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-   			<span class="navbar-toggler-icon"></span>
-  		</button>
+ 			<span class="navbar-toggler-icon"></span>
+		</button>
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-		    <ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<%= link_to "Query Directory", 'query_directory', :class => "nav-link" %>
-				</li>
-				<li class="nav-item">
-					<%= link_to "Log-in", root_path, :class => "nav-link" %>
-				</li>
-	    	</ul>
-    	</div>
-  	</nav>
+	    <ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<%= link_to "Query Directory", 'query_directory', :class => "nav-link" %>
+			</li>
+			<li class="nav-item">
+				<%= link_to "Log-in", root_path, :class => "nav-link" %>
+			</li>
+    	</ul>
+  	</div>
+	</nav>
 
-
-
-
-
-  	<div id = "main-container" class="container rounded">
-    	<%= yield %>
+	<div id = "main-container" class="container rounded">
+  	<%= yield %>
 	</div>
+  
   </body>
 </html>
