@@ -1,0 +1,29 @@
+<%# This is the Query Directory page. -%>
+<%# http://localhost:3000/queries/query_directory -%>
+
+<h1>Query Directory Page</h1>
+<%#= debug @results%>
+
+<div class="btn btn-primary">
+	<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
+</div>
+<div class="btn btn-primary">
+	<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
+</div>
+<div class="btn btn-primary">
+	<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
+</div>
+<div class="btn btn-primary">
+	<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
+</div>
+
+
+<%# Custom User Search goes in this div -%>
+<div id = "custom_search" class="container">
+	<p class="text-center">This is the Custom User Search section.</p>
+	<div class="col-12 text-center">
+		<div class="btn btn-primary">
+			<%= link_to "Get Results", 'custom_search', id: 'btn_link' %>
+		</div>
+	</div>
+</div>

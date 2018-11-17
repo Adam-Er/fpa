@@ -1,13 +1,16 @@
-class PostsController < ApplicationController
+class QueriesController < ApplicationController
 	def index
 		render :layout => "landing_page"
+	end
+
+	def dashboard
 	end
 	
 	def query_directory
 	end
 	
 
-	def query1
+	def complaint_rankings
 		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
 		# @results = c.execute("select * from camoen.complaint where rownum <= 10")
 		# while r = @results.fetch()
@@ -32,5 +35,15 @@ class PostsController < ApplicationController
 
 	def custom_search
 	end
+
+	def product_rankings
+	end
+
+	def timeliness_rankings
+	end
+
+	def dispute_rankings
+	end
+
 
 end
