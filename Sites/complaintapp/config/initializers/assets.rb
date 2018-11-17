@@ -13,8 +13,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-# Landing Page CSS
-Rails.application.config.assets.precompile += %w( landing.css )
-
 # Default Page CSS
 Rails.application.config.assets.precompile += %w( default.css )
