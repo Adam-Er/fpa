@@ -7,6 +7,10 @@ body {
 	height: 100vh;
 }
 
+label {
+	margin-left: 0.5vw;
+}
+
 #btn_link {
 	color: white ;
 }
@@ -37,6 +41,14 @@ body {
   margin: 0 auto;
 }
 
+.form_category {
+	position: relative;
+	display: inline-block;
+	font-weight: bold;
+	//border-bottom: 1px dashed #AAA;
+	margin-bottom: 1vh;
+}
+
 .landing_pg {
 	padding-top: 5vh;
 }
@@ -52,6 +64,46 @@ body {
 	font-family:Arial;
 	overflow-y:auto;
 }
+
+.form_category .tooltiptext {
+	margin-left: 0.5vw;
+	font-weight: normal;
+    visibility: hidden;
+    width: 150px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -75px; /* Use half of the width to center the tooltip */
+}
+
+.form_category:hover .tooltiptext {
+    visibility: visible;
+}
+
+.form_category .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+#company_tooltip {
+	//top: -5px;
+}
+
+
 
 tr:nth-child(even) {background-color:black}
 tr:nth-child(odd) {background-color:#181b2f}

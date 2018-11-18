@@ -7,6 +7,7 @@ class QueriesController < ApplicationController
 	end
 	
 	def query_directory
+		@names = ApplicationRecord.execQuery("select distinct name from camoen.complaint where rownum <= 5 order by name");
 	end
 	
 
@@ -33,7 +34,13 @@ class QueriesController < ApplicationController
 		
 	end
 
+	# Forms for Custom User Query
+	def create
+	 	#@tags = params[:flag]
+	end
+
 	def custom_search
+
 	end
 
 	def product_rankings

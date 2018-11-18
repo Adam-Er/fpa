@@ -1,8 +1,12 @@
 <%-# This is the Custom User Search page. -%>
-<%-# http://localhost:3000/posts/custom_search -%>
+<%-# http://localhost:3000/queries/custom_search -%>
 
 <h1>Results</h1>
 
+<%= params.inspect %>
+<br>
+<%#= params[:flag] %>
+<br>
 <div class="btn btn-primary">
 	<%= link_to "New Query", 'query_directory', id: 'btn_link' %>
 </div>

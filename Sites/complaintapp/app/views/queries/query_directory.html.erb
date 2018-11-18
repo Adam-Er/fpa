@@ -21,9 +21,133 @@
 <%# Custom User Search goes in this div -%>
 <div id = "custom_search" class="container">
 	<p class="text-center">This is the Custom User Search section.</p>
-	<div class="col-12 text-center">
-		<div class="btn btn-primary">
-			<%= link_to "Get Results", 'custom_search', id: 'btn_link' %>
+
+	<div class="container">
+		<%= form_tag '/queries/custom_search', method: :get do %>
+		<div class="row">
+			<div class="col-md-4 field form-group">
+				<div class="field form-group">
+					<div class="form_category">Demographic:
+						<span class="tooltiptext">Leave unchecked to view all results.
+						</span>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :demo1, true, @tags %>
+						<%= label_tag :demo1, "Older American"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :demo2, true, @tags %>
+						<%= label_tag :demo2, "Service Member"%>
+					</div>
+				</div>
+				<div class="field form-group">
+					<div class="form_category">Complaint Submission Method:
+						<span class="tooltiptext">Leave unchecked to view all results.
+						</span>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :sub1, true, @tags %>
+						<%= label_tag :sub1, "E-mail"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :sub2, true, @tags %>
+						<%= label_tag :sub2, "Fax"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :sub3, true, @tags %>
+						<%= label_tag :sub3, "Phone"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :sub4, true, @tags %>
+						<%= label_tag :sub4, "Postal Mail"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :sub5, true, @tags %>
+						<%= label_tag :sub5, "Referral"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag :sub6, true, @tags %>
+						<%= label_tag :sub6, "Web"%>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 field form-group">
+				<div class="form_category">Product/Service Type:
+					<% if false %>
+					<span class="tooltiptext">Leave unchecked to view all results.
+					</span>
+					<% end %>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type1, true, @tags %>
+					<%= label_tag :type1, "Banking"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type2, true, @tags %>
+					<%= label_tag :type2, "Consumer Loan"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type3, true, @tags %>
+					<%= label_tag :type3, "Credit Card"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type4, true, @tags %>
+					<%= label_tag :type4, "Credit Reporting"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type5, true, @tags %>
+					<%= label_tag :type5, "Debt Collection"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type6, true, @tags %>
+					<%= label_tag :type6, "Money Transfer"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type7, true, @tags %>
+					<%= label_tag :type7, "Mortgage"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type8, true, @tags %>
+					<%= label_tag :type8, "Prepaid Card"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type9, true, @tags %>
+					<%= label_tag :type9, "Student Loan"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type10, true, @tags %>
+					<%= label_tag :type10, "Virtual Currency"%>
+				</div>
+				<div class="checkbox">
+					<%= check_box_tag :type11, true, @tags %>
+					<%= label_tag :type11, "Other"%>
+				</div>
+			</div>
+			<div class="col-md-4 field form-group">
+				<div class="form_category">Company Selection:
+					<% if false %>
+					<span id="company_tooltip" class="tooltiptext">Select companies of interest.
+					</span>
+					<% end %>
+				</div>
+
+				<%# TODO: Create scrollable checkbox (for inclusion of all companies) %>
+				<% @names.each_with_index do |n, index| %>
+					<% n.each do |value| %>
+						<%#= index %>
+						<%#= value[1] %>
+						<div class="checkbox">
+							<%= check_box_tag "cname[#{index}]", true, @tags %>
+							<%= label_tag "cname[#{index}]", value[1] %>
+						</div>
+					<% end %>
+				<% end %>
+
+			</div>
 		</div>
+		<div class="col-12 text-center">
+			<%= submit_tag 'Save', class: 'btn btn-primary', id: 'btn_link'  %>
+		</div>
+		<% end %>
 	</div>
 </div>
