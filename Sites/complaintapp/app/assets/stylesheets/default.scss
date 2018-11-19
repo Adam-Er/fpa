@@ -133,6 +133,11 @@ label {
 	margin-bottom: 6px;
 }
 
+//TODO: Find a way to make buttons narrower on smallest screen size
+.btn.btn-primary.d-block.d-md-none {
+	margin-bottom: 1rem;
+	width: auto !important;
+}
 
 tr:nth-child(even) {background-color:black}
 tr:nth-child(odd) {background-color:#181b2f}

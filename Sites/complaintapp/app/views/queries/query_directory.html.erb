@@ -8,21 +8,29 @@
 	<div class="col-md-6 text-center">
 		<i class="fa fa-building fa-3x"></i>
 		<p class="query_descriptor text-left">Which financial institutions are the least consumer friendly?  To provide you with a list of the least consumer-friendly companies, we've ranked all of them by their monthly complaint averages.</p>
-	</div>
-	<div class="col-md-6 text-center">
-		<i class="fa fa-credit-card fa-3x"></i>
-		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
-	</div>
-</div>
-<div class="row button_row">
-	<div class="col-md-6 text-center">
-		<div class="btn btn-primary">
+		<div class="btn btn-primary d-block d-md-none">
 			<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
 		</div>
 	</div>
 	<div class="col-md-6 text-center">
-		<div class="btn btn-primary">
+		<i class="fa fa-credit-card fa-3x"></i>
+		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
+		<div class="btn btn-primary d-block d-md-none">
 			<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
+		</div>
+	</div>
+</div>
+<div class="d-none d-md-block">
+	<div class="row button_row">
+		<div class="col-md-6 text-center">
+			<div class="btn btn-primary">
+				<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
+			</div>
+		</div>
+		<div class="col-md-6 text-center">
+			<div class="btn btn-primary">
+				<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
+			</div>
 		</div>
 	</div>
 </div>
@@ -30,21 +38,29 @@
 	<div class="col-md-6 text-center">
 		<i class="fa fa-clock-o fa-3x"></i>
 		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
-	</div>
-	<div class="col-md-6 text-center">
-		<i class="fa fa-frown-o fa-3x"></i>
-		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
-	</div>
-</div>
-<div class="row button_row">
-	<div class="col-md-6 text-center">
-		<div class="btn btn-primary">
+		<div class="btn btn-primary d-block d-md-none">
 			<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
 		</div>
 	</div>
 	<div class="col-md-6 text-center">
-		<div class="btn btn-primary">
+		<i class="fa fa-frown-o fa-3x"></i>
+		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
+		<div class="btn btn-primary d-block d-md-none">
 			<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
+		</div>
+	</div>
+</div>
+<div class="d-none d-md-block">
+	<div class="row button_row">
+		<div class="col-md-6 text-center">
+			<div class="btn btn-primary">
+				<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
+			</div>
+		</div>
+		<div class="col-md-6 text-center">
+			<div class="btn btn-primary">
+				<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
+			</div>
 		</div>
 	</div>
 </div>
