@@ -17,11 +17,27 @@ label {
 
 #custom_search {
 	margin-top: 2vh;
+	padding-bottom: 2vh;
+}
+
+#company_container {
+	max-height: 40vh;
+	overflow-y: auto;
+}
+
+.company_check {
+	display: inline;
+	margin-right: -18px;
+}
+
+.company_name {
+	margin-left: 18px;
+	vertical-align: top;
 }
 
 #main-container {
 	background-color: #d6deea;
-	height: 86vh;
+	min-height: 86vh;
 	margin-top: 2vh;
 	margin-bottom: 7vh;
 

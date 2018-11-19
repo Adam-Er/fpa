@@ -7,7 +7,9 @@ class QueriesController < ApplicationController
 	end
 	
 	def query_directory
-		@names = ApplicationRecord.execQuery("select distinct name from camoen.complaint where rownum <= 5 order by name");
+		@names = ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
+		# Replace above line with below for faster load times during development (if needed)
+		# @names = ApplicationRecord.execQuery("select distinct name from camoen.complaint where rownum <= 5 order by name");
 	end
 	
 

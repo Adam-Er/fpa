@@ -130,19 +130,18 @@
 					</span>
 					<% end %>
 				</div>
-
-				<%# TODO: Create scrollable checkbox (for inclusion of all companies) %>
-				<% @names.each_with_index do |n, index| %>
-					<% n.each do |value| %>
-						<%#= index %>
-						<%#= value[1] %>
-						<div class="checkbox">
-							<%= check_box_tag "cname[#{index}]", true, @tags %>
-							<%= label_tag "cname[#{index}]", value[1] %>
-						</div>
+				<div id="company_container">
+					<% @names.each_with_index do |n, index| %>
+						<% n.each do |value| %>
+							<%#= index %>
+							<%#= value[1] %>
+							<div class="checkbox-inline">
+								<%= check_box_tag "cname[#{index}]", true, @tags, class: 'company_check' %>
+								<%= label_tag "cname[#{index}]", value[1], class: 'company_name' %>
+							</div>
+						<% end %>
 					<% end %>
-				<% end %>
-
+				</div>
 			</div>
 		</div>
 		<div class="col-12 text-center">
