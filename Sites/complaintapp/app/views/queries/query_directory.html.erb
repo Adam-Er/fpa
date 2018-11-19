@@ -4,17 +4,33 @@
 <h1>Query Directory Page</h1>
 <%#= debug @results%>
 
-<div class="btn btn-primary">
-	<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
+<div class="row">
+	<div class="col-md-6 text-center">
+		<p class="query_descriptor text-left">Short description of query. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra.</p>
+		<div class="btn btn-primary">
+			<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
+		</div>
+	</div>
+	<div class="col-md-6 text-center">
+		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
+		<div class="btn btn-primary">
+			<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
+		</div>
+	</div>
 </div>
-<div class="btn btn-primary">
-	<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
-</div>
-<div class="btn btn-primary">
-	<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
-</div>
-<div class="btn btn-primary">
-	<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
+<div class="row">
+	<div class="col-md-6 text-center">
+		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
+		<div class="btn btn-primary">
+			<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
+		</div>
+	</div>
+	<div class="col-md-6 text-center">
+		<p class="query_descriptor text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare nisi vitae sem sodales, id dictum libero pharetra. Donec id.</p>
+		<div class="btn btn-primary">
+			<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
+		</div>
+	</div>
 </div>
 
 
