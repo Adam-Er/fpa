@@ -79,6 +79,8 @@ GEM
     execjs (2.7.0)
     ffi (1.9.25-x64-mingw32)
     ffi (1.9.25-x86-mingw32)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.1.1)
@@ -202,6 +204,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
   puma (~> 3.7)

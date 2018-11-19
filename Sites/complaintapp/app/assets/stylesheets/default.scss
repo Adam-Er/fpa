@@ -7,6 +7,12 @@ body {
 	height: 100vh;
 }
 
+h1 {
+	text-align: center;
+	padding-top: 1rem;
+	padding-bottom: 2rem;
+}
+
 label {
 	margin-left: 0.5vw;
 }
@@ -115,14 +121,17 @@ label {
     border-color: black transparent transparent transparent;
 }
 
-.col-md-6 {
-	margin-bottom: 1rem;
+.button_row {
+	margin-bottom: 2.5rem;
 }
 
 #company_tooltip {
 	//top: -5px;
 }
 
+.fa {
+	margin-bottom: 6px;
+}
 
 
 tr:nth-child(even) {background-color:black}
