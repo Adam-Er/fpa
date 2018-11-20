@@ -83,13 +83,25 @@
 						<span class="tooltiptext">Leave unchecked to view all results.
 						</span>
 					</div>
-					<div class="checkbox">
-						<%= check_box_tag :demo1, true, @tags %>
-						<%= label_tag :demo1, "Older American"%>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{1}]", 1 %>
+						<%= label_tag :"demo[#{1}]", "Older American"%>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{1}]", 2 %>
+						<%= label_tag :"demo[#{1}]", "Not Older American"%>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{2}]", 1 %>
+						<%= label_tag :"demo[#{2}]", "Service Member"%>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{2}]", 2 %>
+						<%= label_tag :"demo[#{2}]", "Not Service Member"%>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :demo2, true, @tags %>
-						<%= label_tag :demo2, "Service Member"%>
+						<%= check_box_tag "demo[#{3}]", true, @tags %>
+						<%= label_tag "demo[#{3}]", "All Other Demographics"%>
 					</div>
 				</div>
 				<div class="field form-group">
@@ -98,28 +110,28 @@
 						</span>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :sub1, true, @tags %>
-						<%= label_tag :sub1, "E-mail"%>
+						<%= check_box_tag "sub[#{1}]", true, @tags %>
+						<%= label_tag "sub[#{1}]", "E-mail"%>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :sub2, true, @tags %>
-						<%= label_tag :sub2, "Fax"%>
+						<%= check_box_tag "sub[#{2}]", true, @tags %>
+						<%= label_tag "sub[#{2}]", "Fax"%>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :sub3, true, @tags %>
-						<%= label_tag :sub3, "Phone"%>
+						<%= check_box_tag "sub[#{3}]", true, @tags %>
+						<%= label_tag "sub[#{3}]", "Phone"%>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :sub4, true, @tags %>
-						<%= label_tag :sub4, "Postal Mail"%>
+						<%= check_box_tag "sub[#{4}]", true, @tags %>
+						<%= label_tag "sub[#{4}]", "Postal Mail"%>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :sub5, true, @tags %>
-						<%= label_tag :sub5, "Referral"%>
+						<%= check_box_tag "sub[#{5}]", true, @tags %>
+						<%= label_tag "sub[#{5}]", "Referral"%>
 					</div>
 					<div class="checkbox">
-						<%= check_box_tag :sub6, true, @tags %>
-						<%= label_tag :sub6, "Web"%>
+						<%= check_box_tag "sub[#{6}]", true, @tags %>
+						<%= label_tag "sub[#{6}]", "Web"%>
 					</div>
 				</div>
 			</div>
@@ -131,48 +143,48 @@
 					<% end %>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type1, true, @tags %>
-					<%= label_tag :type1, "Banking"%>
+					<%= check_box_tag "type[#{1}]", true, @tags %>
+					<%= label_tag "type[#{1}]", "Banking"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type2, true, @tags %>
-					<%= label_tag :type2, "Consumer Loan"%>
+					<%= check_box_tag "type[#{2}]", true, @tags %>
+					<%= label_tag "type[#{2}]", "Consumer Loan"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type3, true, @tags %>
-					<%= label_tag :type3, "Credit Card"%>
+					<%= check_box_tag "type[#{3}]", true, @tags %>
+					<%= label_tag "type[#{3}]", "Credit Card"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type4, true, @tags %>
-					<%= label_tag :type4, "Credit Reporting"%>
+					<%= check_box_tag "type[#{4}]", true, @tags %>
+					<%= label_tag "type[#{4}]", "Credit Reporting"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type5, true, @tags %>
-					<%= label_tag :type5, "Debt Collection"%>
+					<%= check_box_tag "type[#{5}]", true, @tags %>
+					<%= label_tag "type[#{5}]", "Debt Collection"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type6, true, @tags %>
-					<%= label_tag :type6, "Money Transfer"%>
+					<%= check_box_tag "type[#{6}]", true, @tags %>
+					<%= label_tag "type[#{6}]", "Money Transfer"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type7, true, @tags %>
-					<%= label_tag :type7, "Mortgage"%>
+					<%= check_box_tag "type[#{7}]", true, @tags %>
+					<%= label_tag "type[#{7}]", "Mortgage"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type8, true, @tags %>
-					<%= label_tag :type8, "Prepaid Card"%>
+					<%= check_box_tag "type[#{8}]", true, @tags %>
+					<%= label_tag "type[#{8}]", "Prepaid Card"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type9, true, @tags %>
-					<%= label_tag :type9, "Student Loan"%>
+					<%= check_box_tag "type[#{9}]", true, @tags %>
+					<%= label_tag "type[#{9}]", "Student Loan"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type10, true, @tags %>
-					<%= label_tag :type10, "Virtual Currency"%>
+					<%= check_box_tag "type[#{10}]", true, @tags %>
+					<%= label_tag "type[#{10}]", "Virtual Currency"%>
 				</div>
 				<div class="checkbox">
-					<%= check_box_tag :type11, true, @tags %>
-					<%= label_tag :type11, "Other"%>
+					<%= check_box_tag "type[#{11}]", true, @tags %>
+					<%= label_tag "type[#{11}]", "Other"%>
 				</div>
 			</div>
 			<div class="col-md-4 field form-group">
@@ -197,7 +209,7 @@
 			</div>
 		</div>
 		<div class="col-12 text-center">
-			<%= submit_tag 'Get Results', class: 'btn btn-primary', id: 'btn_link'  %>
+			<%= submit_tag 'Get Results', class: 'btn btn-primary btn_bottom', id: 'btn_link'  %>
 		</div>
 		<% end %>
 	</div>
