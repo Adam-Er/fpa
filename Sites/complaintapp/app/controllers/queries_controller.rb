@@ -56,7 +56,7 @@ class QueriesController < ApplicationController
 			num = 1
 			params[:cname].each do |i|
 				if num == 1
-					companies += "where name = '"
+					companies += "where (name = '"
 				else
 					companies += "or name = '"
 				end
@@ -64,6 +64,7 @@ class QueriesController < ApplicationController
 				companies += "' "
 				num = num + 1
 			end
+			companies += ") "
 			#puts companies
 		end
 
@@ -79,6 +80,7 @@ class QueriesController < ApplicationController
 		 		if num > 1
 					product += "and "
 		 		end
+		 		demo += "("
 				product += "type in (select type from camoen.bank_account) "
 		 		num = num + 1
 		 		prodnum = prodnum + 1
@@ -88,7 +90,7 @@ class QueriesController < ApplicationController
 		 			if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type in (select type from camoen.payday_loan) "
@@ -100,7 +102,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type in (select type from camoen.credit_card) "
@@ -112,7 +114,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type in (select type from camoen.credit_reporting) "
@@ -124,7 +126,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type = 'Debt collection' "
@@ -136,7 +138,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type in (select type from camoen.money_transfer) "
@@ -148,7 +150,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type = 'Mortgage' "
@@ -160,7 +162,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type in (select type from camoen.prepaid_card) "
@@ -172,7 +174,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type = 'Student Loan' "
@@ -184,7 +186,7 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type in (select type from camoen.virtual_currency) "
@@ -196,13 +198,14 @@ class QueriesController < ApplicationController
 					if prodnum > 0
 		 				product += "or "
 		 			else
-						product += "and "
+						product += "and ("
 					end
 		 		end
 				product += "type = 'Other financial service' "
 		 		num = num + 1
 		 		prodnum = prodnum + 1
 		 	end
+		 	product += ") "
 			#puts product
 		end
 
@@ -278,11 +281,8 @@ class QueriesController < ApplicationController
 		 			if subnum > 0
 		 				submission += "or "
 		 			else
-						submission += "and "
+						submission += "and ("
 					end
-		 		end
-		 		if subnum < 1
-		 			submission += "("
 		 		end
 				submission += "submitted_via = 'Fax' "
 		 		num = num + 1
@@ -293,11 +293,8 @@ class QueriesController < ApplicationController
 		 			if subnum > 0
 		 				submission += "or "
 		 			else
-						submission += "and "
+						submission += "and ("
 					end
-		 		end
-		 		if subnum < 1
-		 			submission += "("
 		 		end
 				submission += "submitted_via = 'Phone' "
 		 		num = num + 1
@@ -308,11 +305,8 @@ class QueriesController < ApplicationController
 		 			if subnum > 0
 		 				submission += "or "
 		 			else
-						submission += "and "
+						submission += "and ("
 					end
-		 		end
-		 		if subnum < 1
-		 			submission += "("
 		 		end
 				submission += "submitted_via = 'Postal mail' "
 		 		num = num + 1
@@ -323,11 +317,8 @@ class QueriesController < ApplicationController
 		 			if subnum > 0
 		 				submission += "or "
 		 			else
-						submission += "and "
+						submission += "and ("
 					end
-		 		end
-		 		if subnum < 1
-		 			submission += "("
 		 		end
 				submission += "submitted_via = 'Referral' "
 		 		num = num + 1
@@ -338,11 +329,8 @@ class QueriesController < ApplicationController
 		 			if subnum > 0
 		 				submission += "or "
 		 			else
-						submission += "and "
+						submission += "and ("
 					end
-		 		end
-		 		if subnum < 1
-		 			submission += "("
 		 		end
 				submission += "submitted_via = 'Web' "
 		 		num = num + 1
