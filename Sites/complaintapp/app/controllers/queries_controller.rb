@@ -51,7 +51,6 @@ class QueriesController < ApplicationController
 		num = 0
 		
 		# If company name(s) are selected
-		#TODO: Fix company names with an & in them so the & is escaped
 		companies = ""
 		if (!params[:cname].blank?)
 			num = 1
@@ -65,7 +64,7 @@ class QueriesController < ApplicationController
 				companies += "' "
 				num = num + 1
 			end
-		puts companies
+			#puts companies
 		end
 
 		# If product type is selected
@@ -204,7 +203,7 @@ class QueriesController < ApplicationController
 		 		num = num + 1
 		 		prodnum = prodnum + 1
 		 	end
-		puts product
+			#puts product
 		end
 
 		# If demographic is selected
@@ -255,10 +254,111 @@ class QueriesController < ApplicationController
 		 		num = num + 1
 		 	end
 		 	demo += ") "
-		 	puts demo
-		 end
+		 	#puts demo
+		end
+
+		 # If Submission Method is selected
+		submission = ""
+		subnum = 0
+		if (!params[:sub].blank?)
+		 	if num < 1
+		 		submission += "where "
+		 		num = num + 1
+		 	end
+			if params[:sub].key?("1")
+		 		if num > 1
+					submission += "and "
+		 		end
+				submission += "(submitted_via = 'Email' "
+		 		num = num + 1
+		 		subnum = subnum + 1
+		 	end
+		 	if params[:sub].key?("2")
+		 		if num > 1
+		 			if subnum > 0
+		 				submission += "or "
+		 			else
+						submission += "and "
+					end
+		 		end
+		 		if subnum < 1
+		 			submission += "("
+		 		end
+				submission += "submitted_via = 'Fax' "
+		 		num = num + 1
+		 		subnum = subnum + 1
+		 	end
+		 	if params[:sub].key?("3")
+		 		if num > 1
+		 			if subnum > 0
+		 				submission += "or "
+		 			else
+						submission += "and "
+					end
+		 		end
+		 		if subnum < 1
+		 			submission += "("
+		 		end
+				submission += "submitted_via = 'Phone' "
+		 		num = num + 1
+		 		subnum = subnum + 1
+		 	end
+		 	if params[:sub].key?("4")
+		 		if num > 1
+		 			if subnum > 0
+		 				submission += "or "
+		 			else
+						submission += "and "
+					end
+		 		end
+		 		if subnum < 1
+		 			submission += "("
+		 		end
+				submission += "submitted_via = 'Postal mail' "
+		 		num = num + 1
+		 		subnum = subnum + 1
+		 	end
+		 	if params[:sub].key?("5")
+		 		if num > 1
+		 			if subnum > 0
+		 				submission += "or "
+		 			else
+						submission += "and "
+					end
+		 		end
+		 		if subnum < 1
+		 			submission += "("
+		 		end
+				submission += "submitted_via = 'Referral' "
+		 		num = num + 1
+		 		subnum = subnum + 1
+		 	end
+		 	if params[:sub].key?("6")
+		 		if num > 1
+		 			if subnum > 0
+		 				submission += "or "
+		 			else
+						submission += "and "
+					end
+		 		end
+		 		if subnum < 1
+		 			submission += "("
+		 		end
+				submission += "submitted_via = 'Web' "
+		 		num = num + 1
+		 		subnum = subnum + 1
+		 	end
+		 	submission += ") "
+		 	#puts submission
+		end
 
 
+		where = companies + product + demo + submission
+		query = "select count(*) from camoen.complaint "
+		query += where
+		puts query
+		testing = ApplicationRecord.execQuery(query);
+		puts testing
 
 	end
 
