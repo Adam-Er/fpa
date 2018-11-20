@@ -51,8 +51,8 @@ class QueriesController < ApplicationController
 		num = 0
 		
 		# If company name(s) are selected
+		#TODO: Fix company names with an & in them so the & is escaped
 		companies = ""
-		
 		if (!params[:cname].blank?)
 			num = 1
 			params[:cname].each do |i|
