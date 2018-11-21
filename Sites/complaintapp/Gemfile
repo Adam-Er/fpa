@@ -57,3 +57,6 @@ gem 'jquery-rails'
 
 # Gem for Font Awesome
 gem 'font-awesome-rails'
+
+# Gem for Jquery Calendar
+gem 'jquery-ui-rails'

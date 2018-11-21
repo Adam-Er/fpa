@@ -15,3 +15,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Default Page CSS
 Rails.application.config.assets.precompile += %w( default.css )
+
+# Datepicker CSS
+Rails.application.config.assets.precompile += %w( datepicker.css )
