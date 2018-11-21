@@ -30,19 +30,30 @@ label {
 	//padding-bottom: 2vh;
 }
 
-#company_container {
+.scroll_container {
 	max-height: 40vh;
 	overflow-y: auto;
+	margin-bottom: 1rem;
 }
 
-.company_check {
+.state_container {
+	max-height: 20vh;
+	overflow-y: auto;
+	margin-bottom: 0;
+}
+
+.align_check {
 	display: inline;
 	margin-right: -18px;
 }
 
-.company_name {
+.align_name {
 	margin-left: 18px;
 	vertical-align: top;
+}
+
+.demo_name {
+	padding-left: 0.5vw;
 }
 
 #main-container {

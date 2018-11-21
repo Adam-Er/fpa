@@ -1,5 +1,10 @@
 class QueriesController < ApplicationController
-	@@names = ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
+	# Get State Abbreviations Hash
+	include Variables
+	@@State_list = States
+	# Get Company Names
+	@@names ||= ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
+	
 
 	def index
 		render :layout => "landing_page"
@@ -9,6 +14,7 @@ class QueriesController < ApplicationController
 	end
 	
 	def query_directory
+		@State_list = @@State_list
 		#@@names = ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
 		@names = @@names
 		# @names = ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
@@ -80,7 +86,7 @@ class QueriesController < ApplicationController
 		 		if num > 1
 					product += "and "
 		 		end
-		 		demo += "("
+		 		product += "("
 				product += "type in (select type from camoen.bank_account) "
 		 		num = num + 1
 		 		prodnum = prodnum + 1
@@ -210,6 +216,8 @@ class QueriesController < ApplicationController
 		end
 
 		# If demographic is selected
+		# TODO: Perhaps auto-enable "all other demographics" if
+		# "Not Older American" and "Not Service Member" are both selected
 		demo = ""
 		demnum = 0
 		if (!params[:demo].blank?)
@@ -340,8 +348,41 @@ class QueriesController < ApplicationController
 		 	#puts submission
 		end
 
+		state_var = "Alaska"
+		puts @@State_list[state_var]
+		puts @@State_list.size
+		# If state(s) are selected
+		states = ""
+		statenum = 0
+		if (!params[:state].blank?)
+			if num < 1
+		 		submission += "where ("
+		 		num = num + 1
+		 	end
+			params[:state].each do |i|
+				if num > 1
+					if statenum > 0
+						states += "or "
+					else
+						states += "and ("
+					end
+				end
+				states += "state = '"
+				puts i[0]
+				puts @@State_list[i[0]]
+				states += @@State_list[i[0]]
+				states += "' "
+				num = num + 1
+				statenum = statenum + 1
+			end
+			states += ") "
+			#puts states
+		end
 
-		where = companies + product + demo + submission
+
+
+
+		where = companies + product + demo + submission + states
 		query = "select count(*) from camoen.complaint "
 		query += where
 		puts query

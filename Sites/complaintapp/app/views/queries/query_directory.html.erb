@@ -99,9 +99,9 @@
 						<%= radio_button_tag :"demo[#{2}]", 2 %>
 						<%= label_tag :"demo[#{2}]", "Not Service Member"%>
 					</div>
-					<div class="checkbox">
-						<%= check_box_tag "demo[#{3}]", true, @tags %>
-						<%= label_tag "demo[#{3}]", "All Other Demographics"%>
+					<div class="checkbox-inline">
+						<%= check_box_tag "demo[#{3}]", true, @tags, class: 'align_check' %>
+						<%= label_tag "demo[#{3}]", "All Other Demographics", class: 'align_name demo_name' %>
 					</div>
 				</div>
 				<div class="field form-group">
@@ -194,18 +194,38 @@
 					</span>
 					<% end %>
 				</div>
-				<div id="company_container">
+				<div class="scroll_container">
 					<% @names.each_with_index do |n, index| %>
 						<% n.each do |value| %>
 							<%#= index %>
 							<%#= value[1] %>
 							<div class="checkbox-inline">
-								<%= check_box_tag "cname[#{index}]", true, @tags, class: 'company_check' %>
-								<%= label_tag "cname[#{index}]", value[1], class: 'company_name' %>
+								<%= check_box_tag "cname[#{index}]", true, @tags, class: 'align_check' %>
+								<%= label_tag "cname[#{index}]", value[1], class: 'align_name' %>
 							</div>
 						<% end %>
 					<% end %>
 				</div>
+
+
+				<div class="form_category">State Selection:
+					<% if false %>
+					<span id="company_tooltip" class="tooltiptext">Select companies of interest.
+					</span>
+					<% end %>
+				</div>
+
+				<div class="scroll_container state_container">
+					<% @State_list.each do |key, value| %>
+						<%#= index %>
+						<%#= value[1] %>
+						<div class="checkbox-inline">
+							<%= check_box_tag "state[#{key}]", true, @tags, class: 'align_check' %>
+							<%= label_tag "state[#{key}]", "#{key}", class: 'align_name' %>
+						</div>
+					<% end %>
+				</div>
+
 			</div>
 		</div>
 		<div class="col-12 text-center">
