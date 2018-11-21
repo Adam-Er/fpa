@@ -137,10 +137,8 @@
 			</div>
 			<div class="col-md-4 field form-group">
 				<div class="form_category">Product/Service Type:
-					<% if false %>
 					<span class="tooltiptext">Leave unchecked to view all results.
 					</span>
-					<% end %>
 				</div>
 				<div class="checkbox">
 					<%= check_box_tag "type[#{1}]", true, @tags %>
@@ -189,10 +187,8 @@
 			</div>
 			<div class="col-md-4 field form-group">
 				<div class="form_category">Company Selection:
-					<% if false %>
-					<span id="company_tooltip" class="tooltiptext">Select companies of interest.
+					<span id="company_tooltip" class="tooltiptext">Hint: Use Ctrl+F to search for companies.
 					</span>
-					<% end %>
 				</div>
 				<div class="scroll_container">
 					<% @names.each_with_index do |n, index| %>
@@ -209,10 +205,8 @@
 
 
 				<div class="form_category">State Selection:
-					<% if false %>
-					<span id="company_tooltip" class="tooltiptext">Select companies of interest.
+					<span class="tooltiptext">Leave unchecked to view all results.
 					</span>
-					<% end %>
 				</div>
 
 				<div class="scroll_container state_container">

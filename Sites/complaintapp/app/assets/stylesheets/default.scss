@@ -106,8 +106,8 @@ label {
 	margin-left: 0.5vw;
 	font-weight: normal;
     visibility: hidden;
-    width: 150px;
-    background-color: black;
+    width: 160px;
+    background-color: #333;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -118,7 +118,7 @@ label {
     z-index: 1;
     bottom: 100%;
     left: 50%;
-    margin-left: -75px; /* Use half of the width to center the tooltip */
+    margin-left: -80px; /* Use half of the width to center the tooltip */
 }
 
 .form_category:hover .tooltiptext {
@@ -133,7 +133,7 @@ label {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
+    border-color: #333 transparent transparent transparent;
 }
 
 .button_row {
