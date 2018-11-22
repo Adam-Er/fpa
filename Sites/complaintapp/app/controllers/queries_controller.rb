@@ -268,45 +268,45 @@ class QueriesController < ApplicationController
 		end
 		# If "Not Older American" and "Not Service Member" are selected
 		# but "All Other Demographics" is not selected
-		if (params[:demo]["1"] == "2" && params[:demo]["2"] == "2" && !params[:demo].key?("3"))
-			num -= 3
-			demo = ""
-			if num < 1
-		 		demo += "where "
-		 		num = num + 1
-		 	else
-		 		demo += "and "
-		 	end
-			demo += "tag is null "
+		if (!params[:demo].blank?)
+			if (params[:demo]["1"] == "2" && params[:demo]["2"] == "2" && !params[:demo].key?("3"))
+				num -= 3
+				demo = ""
+				if num < 1
+			 		demo += "where "
+			 		num = num + 1
+			 	else
+			 		demo += "and "
+			 	end
+				demo += "tag is null "
+			end
+			# If only "Not Older American" is selected
+			# but "All Other Demographics" is not selected
+			if (params[:demo]["1"] == "2" && !params[:demo].key?("2") && !params[:demo].key?("3"))
+				num -= 2
+				demo = ""
+				if num < 1
+			 		demo += "where "
+			 		num = num + 1
+			 	else
+			 		demo += "and "
+			 	end
+				demo += "(tag is null or tag not like '%Older%') "
+			end
+			# If only "Not Service Member" is selected
+			# but "All Other Demographics" is not selected
+			if (!params[:demo].key?("1") && params[:demo]["2"] == "2" && !params[:demo].key?("3"))
+				num -= 2
+				demo = ""
+				if num < 1
+			 		demo += "where "
+			 		num = num + 1
+			 	else
+			 		demo += "and "
+			 	end
+				demo += "(tag is null or tag not like '%Service%') "
+			end
 		end
-		# If only "Not Older American" is selected
-		# but "All Other Demographics" is not selected
-		if (params[:demo]["1"] == "2" && !params[:demo].key?("2") && !params[:demo].key?("3"))
-			num -= 2
-			demo = ""
-			if num < 1
-		 		demo += "where "
-		 		num = num + 1
-		 	else
-		 		demo += "and "
-		 	end
-			demo += "tag is null "
-		end
-		# If only "Not Service Member" is selected
-		# but "All Other Demographics" is not selected
-		if (!params[:demo].key?("1") && params[:demo]["2"] == "2" && !params[:demo].key?("3"))
-			num -= 2
-			demo = ""
-			if num < 1
-		 		demo += "where "
-		 		num = num + 1
-		 	else
-		 		demo += "and "
-		 	end
-			demo += "tag is null "
-		end
-
-
 
 		 # If Submission Method is selected
 		submission = ""
@@ -462,6 +462,12 @@ class QueriesController < ApplicationController
 		puts query
 		testing = ApplicationRecord.execQuery(query);
 		puts testing
+
+		# If company selected, but not product
+		if (!params[:cname].blank? && params[:type].blank?)
+			puts "Company selected but not product"
+
+		end
 
 	end
 
