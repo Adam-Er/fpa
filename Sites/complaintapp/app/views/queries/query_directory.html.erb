@@ -71,81 +71,20 @@
 
 	<p class="text-center">
 		<i class="fa fa-gears fa-3x"></i><br>
-		This is the Custom User Search section. (add more details)
+		Looking for something specific? Use the filters below to generate customized results!<br>
 	</p>
-
+	<p class="tip_head">Tips for usage:</p>
+		<ul class="tips">
+			<li>Select companies or products and services you'd like to compare.</li>
+			<li>Selecting only companies will return a ranking of the selected companies.</li>
+			<li>Selecting only products and services will return a ranking of the selected products and services.</li>
+			<li>Selecting both companies and products/services will return a ranking of chosen companies based on the specified product types. Note that, if a selected company doesn't provide a particular service, this may return zero results. For example, a credit reporting company probably hasn't received any complaints about virtual currency.</li>
+			<li>Results can be narrowed down by demographic, date range, submission method, or state.</li>
+		</ul>
 	<div class="container">
+		<p class="filter_name text-center">Select Categories of Interest</p>
 		<%= form_tag '/queries/custom_search', method: :get do %>
-		<div class="row">
-			<div class="col-md-4 field form-group">
-				<div class="field form-group">
-					<div class="form_category">Demographic:
-						<span class="tooltiptext">Leave unchecked to view all results.
-						</span>
-					</div>
-					<div class="radio">
-						<%= radio_button_tag :"demo[#{1}]", 1 %>
-						<%= label_tag :"demo[#{1}]", "Older American"%>
-					</div>
-					<div class="radio">
-						<%= radio_button_tag :"demo[#{1}]", 2 %>
-						<%= label_tag :"demo[#{1}]", "Not Older American"%>
-					</div>
-					<div class="radio">
-						<%= radio_button_tag :"demo[#{2}]", 1 %>
-						<%= label_tag :"demo[#{2}]", "Service Member"%>
-					</div>
-					<div class="radio">
-						<%= radio_button_tag :"demo[#{2}]", 2 %>
-						<%= label_tag :"demo[#{2}]", "Not Service Member"%>
-					</div>
-					<div class="checkbox-inline">
-						<%= check_box_tag "demo[#{3}]", true, @tags, class: 'align_check' %>
-						<%= label_tag "demo[#{3}]", "All Other Demographics", class: 'align_name demo_name' %>
-					</div>
-				</div>
-				<div class="field form-group">
-					<div class="form_category">Complaint Submission Method:
-						<span class="tooltiptext">Leave unchecked to view all results.
-						</span>
-					</div>
-					<div class="checkbox">
-						<%= check_box_tag "sub[#{1}]", true, @tags %>
-						<%= label_tag "sub[#{1}]", "E-mail"%>
-					</div>
-					<div class="checkbox">
-						<%= check_box_tag "sub[#{2}]", true, @tags %>
-						<%= label_tag "sub[#{2}]", "Fax"%>
-					</div>
-					<div class="checkbox">
-						<%= check_box_tag "sub[#{3}]", true, @tags %>
-						<%= label_tag "sub[#{3}]", "Phone"%>
-					</div>
-					<div class="checkbox">
-						<%= check_box_tag "sub[#{4}]", true, @tags %>
-						<%= label_tag "sub[#{4}]", "Postal Mail"%>
-					</div>
-					<div class="checkbox">
-						<%= check_box_tag "sub[#{5}]", true, @tags %>
-						<%= label_tag "sub[#{5}]", "Referral"%>
-					</div>
-					<div class="checkbox">
-						<%= check_box_tag "sub[#{6}]", true, @tags %>
-						<%= label_tag "sub[#{6}]", "Web"%>
-					</div>
-				</div>
-
-				<div class="form_category">Select Date Range:
-					<span class="tooltiptext">Default shows all results.
-					</span>
-				</div>
-				<div class="form-group calendar">
-				  	<%= text_field_tag("start_date", "", :readonly => true) %>
-					<%= label_tag "start_date", "Start Date"%>
-					<%= text_field_tag("end_date", "", :readonly => true) %>
-					<%= label_tag "end_date", "End Date"%>
-				</div>
-			</div>
+		<div class ="row">
 			<div class="col-md-4 field form-group">
 				<div class="form_category">Product/Service Type:
 					<span class="tooltiptext">Leave unchecked to view all results.
@@ -196,8 +135,8 @@
 					<%= label_tag "type[#{11}]", "Other"%>
 				</div>
 			</div>
-			<div class="col-md-4 field form-group">
-				<div class="form_category">Company Selection:
+			<div class="col-md-8 field form-group">
+				<div class="form_category text-center">Company Selection:
 					<span id="company_tooltip" class="tooltiptext">Hint: Use Ctrl+F to search for companies.
 					</span>
 				</div>
@@ -213,13 +152,75 @@
 						<% end %>
 					<% end %>
 				</div>
-
-
+			</div>
+		</div>
+		<p class="filter_name text-center">Additional Filters</p>
+		<div class="row">
+			<div class="col-md-4 field form-group">
+				<div class="field form-group">
+					<div class="form_category">Complaint Submission Method:
+						<span class="tooltiptext">Leave unchecked to view all results.
+						</span>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag "sub[#{1}]", true, @tags %>
+						<%= label_tag "sub[#{1}]", "E-mail"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag "sub[#{2}]", true, @tags %>
+						<%= label_tag "sub[#{2}]", "Fax"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag "sub[#{3}]", true, @tags %>
+						<%= label_tag "sub[#{3}]", "Phone"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag "sub[#{4}]", true, @tags %>
+						<%= label_tag "sub[#{4}]", "Postal Mail"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag "sub[#{5}]", true, @tags %>
+						<%= label_tag "sub[#{5}]", "Referral"%>
+					</div>
+					<div class="checkbox">
+						<%= check_box_tag "sub[#{6}]", true, @tags %>
+						<%= label_tag "sub[#{6}]", "Web"%>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 field form-group">
+				<div class="field form-group">
+					<div class="form_category">Demographic:
+						<span class="tooltiptext">Leave unchecked to view all results.
+						</span>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{1}]", 1 %>
+						<%= label_tag :"demo[#{1}]", "Older American"%>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{1}]", 2 %>
+						<%= label_tag :"demo[#{1}]", "Not Older American"%>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{2}]", 1 %>
+						<%= label_tag :"demo[#{2}]", "Service Member"%>
+					</div>
+					<div class="radio">
+						<%= radio_button_tag :"demo[#{2}]", 2 %>
+						<%= label_tag :"demo[#{2}]", "Not Service Member"%>
+					</div>
+					<div class="checkbox-inline">
+						<%= check_box_tag "demo[#{3}]", true, @tags, class: 'align_check' %>
+						<%= label_tag "demo[#{3}]", "All Other Demographics", class: 'align_name demo_name' %>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 field form-group">
 				<div class="form_category">State Selection:
 					<span class="tooltiptext">Leave unchecked to view all results.
 					</span>
 				</div>
-
 				<div class="scroll_container state_container">
 					<% @State_list.each do |key, value| %>
 						<%#= index %>
@@ -230,7 +231,20 @@
 						</div>
 					<% end %>
 				</div>
-
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 field form-group">
+				<div class="form_category">Select Date Range:
+					<span class="tooltiptext">Default shows all results.
+					</span>
+				</div>
+				<div class="form-group calendar">
+				  	<%= text_field_tag("start_date", "", :readonly => true) %>
+					<%= label_tag "start_date", "Start Date"%>
+					<%= text_field_tag("end_date", "", :readonly => true) %>
+					<%= label_tag "end_date", "End Date"%>
+				</div>
 			</div>
 		</div>
 		<div class="col-12 text-center">

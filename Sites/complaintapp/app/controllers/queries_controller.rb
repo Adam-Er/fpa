@@ -244,7 +244,6 @@ class QueriesController < ApplicationController
 						demo += "and ("
 					end
 		 		end
-		 		
 		 		if params[:demo]["2"] == "1"
 					demo += "tag like '%Service%' "
 			 	else
@@ -261,7 +260,7 @@ class QueriesController < ApplicationController
 						demo += "and ("
 					end
 		 		end
-				demo += "tag is null"
+				demo += "tag is null "
 		 		num = num + 1
 		 	end
 		 	demo += ") "
@@ -278,9 +277,36 @@ class QueriesController < ApplicationController
 		 	else
 		 		demo += "and "
 		 	end
-			demo += "tag is null"
+			demo += "tag is null "
 		end
-		puts demo
+		# If only "Not Older American" is selected
+		# but "All Other Demographics" is not selected
+		if (params[:demo]["1"] == "2" && !params[:demo].key?("2") && !params[:demo].key?("3"))
+			num -= 2
+			demo = ""
+			if num < 1
+		 		demo += "where "
+		 		num = num + 1
+		 	else
+		 		demo += "and "
+		 	end
+			demo += "tag is null "
+		end
+		# If only "Not Service Member" is selected
+		# but "All Other Demographics" is not selected
+		if (!params[:demo].key?("1") && params[:demo]["2"] == "2" && !params[:demo].key?("3"))
+			num -= 2
+			demo = ""
+			if num < 1
+		 		demo += "where "
+		 		num = num + 1
+		 	else
+		 		demo += "and "
+		 	end
+			demo += "tag is null "
+		end
+
+
 
 		 # If Submission Method is selected
 		submission = ""
