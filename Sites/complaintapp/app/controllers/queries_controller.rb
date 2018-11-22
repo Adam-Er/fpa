@@ -348,9 +348,6 @@ class QueriesController < ApplicationController
 		 	#puts submission
 		end
 
-		state_var = "Alaska"
-		puts @@State_list[state_var]
-		puts @@State_list.size
 		# If state(s) are selected
 		states = ""
 		statenum = 0
@@ -379,10 +376,51 @@ class QueriesController < ApplicationController
 			#puts states
 		end
 
+		# If date(s) are selected
+		dates = ""
+		# If both dates are selected
+		if (!params[:start_date].blank? && !params[:end_date].blank?)
+			puts params[:start_date]
+			puts params[:end_date]
+			if num < 1
+		 		dates += "where "
+		 	else
+		 		dates += "and "
+		 	end
+		 	num = num + 1
+		 	dates += "(date_received between to_date('"
+		 	dates += params[:start_date]
+		 	dates += "', 'MM/DD/YYYY') and to_date('"
+		 	dates += params[:end_date]
+		 	dates += "', 'MM/DD/YYYY'))"
+		# If only a start date is selected
+		elsif (!params[:start_date].blank? && params[:end_date].blank?)
+			if num < 1
+		 		dates += "where "
+		 	else
+		 		dates += "and "
+		 	end
+	 		num = num + 1
+		 	dates += "(date_received > to_date('"
+		 	dates += params[:start_date]
+		 	dates += "', 'MM/DD/YYYY'))"
+		 	puts dates
+		# If only an end date is selected
+		elsif (params[:start_date].blank? && !params[:end_date].blank?)
+			if num < 1
+		 		dates += "where "
+		 	else
+		 		dates += "and "
+		 	end
+	 		num = num + 1
+		 	dates += "(date_received < to_date('"
+		 	dates += params[:end_date]
+		 	dates += "', 'MM/DD/YYYY'))"
+		 	puts dates
+		end
 
 
-
-		where = companies + product + demo + submission + states
+		where = companies + product + demo + submission + states + dates
 		query = "select count(*) from camoen.complaint "
 		query += where
 		puts query
