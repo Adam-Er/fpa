@@ -216,8 +216,6 @@ class QueriesController < ApplicationController
 		end
 
 		# If demographic is selected
-		# TODO: Perhaps auto-enable "all other demographics" if
-		# "Not Older American" and "Not Service Member" are both selected
 		demo = ""
 		demnum = 0
 		if (!params[:demo].blank?)
@@ -240,11 +238,13 @@ class QueriesController < ApplicationController
 		 	end
 			if params[:demo].key?("2")
 		 		if num > 1
-					demo += "and "
+		 			if demnum > 0
+		 				demo += "or "
+		 			else
+						demo += "and ("
+					end
 		 		end
-		 		if demnum < 1
-		 			demo += "("
-		 		end
+		 		
 		 		if params[:demo]["2"] == "1"
 					demo += "tag like '%Service%' "
 			 	else
@@ -267,6 +267,20 @@ class QueriesController < ApplicationController
 		 	demo += ") "
 		 	#puts demo
 		end
+		# If "Not Older American" and "Not Service Member" are selected
+		# but "All Other Demographics" is not selected
+		if (params[:demo]["1"] == "2" && params[:demo]["2"] == "2" && !params[:demo].key?("3"))
+			num -= 3
+			demo = ""
+			if num < 1
+		 		demo += "where "
+		 		num = num + 1
+		 	else
+		 		demo += "and "
+		 	end
+			demo += "tag is null"
+		end
+		puts demo
 
 		 # If Submission Method is selected
 		submission = ""
