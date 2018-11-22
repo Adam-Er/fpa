@@ -139,10 +139,10 @@
 					<span class="tooltiptext">Default shows all results.
 					</span>
 				</div>
-				<div class="form-group">
-				  	<%= text_field_tag("start_date") %>
+				<div class="form-group calendar">
+				  	<%= text_field_tag("start_date", "", :readonly => true) %>
 					<%= label_tag "start_date", "Start Date"%>
-					<%= text_field_tag("end_date") %>
+					<%= text_field_tag("end_date", "", :readonly => true) %>
 					<%= label_tag "end_date", "End Date"%>
 				</div>
 			</div>

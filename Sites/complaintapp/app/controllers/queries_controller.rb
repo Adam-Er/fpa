@@ -380,8 +380,6 @@ class QueriesController < ApplicationController
 		dates = ""
 		# If both dates are selected
 		if (!params[:start_date].blank? && !params[:end_date].blank?)
-			puts params[:start_date]
-			puts params[:end_date]
 			if num < 1
 		 		dates += "where "
 		 	else
@@ -404,7 +402,6 @@ class QueriesController < ApplicationController
 		 	dates += "(date_received > to_date('"
 		 	dates += params[:start_date]
 		 	dates += "', 'MM/DD/YYYY'))"
-		 	puts dates
 		# If only an end date is selected
 		elsif (params[:start_date].blank? && !params[:end_date].blank?)
 			if num < 1
@@ -416,7 +413,6 @@ class QueriesController < ApplicationController
 		 	dates += "(date_received < to_date('"
 		 	dates += params[:end_date]
 		 	dates += "', 'MM/DD/YYYY'))"
-		 	puts dates
 		end
 
 
