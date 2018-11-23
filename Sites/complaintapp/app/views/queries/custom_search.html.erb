@@ -2,13 +2,34 @@
 <%-# http://localhost:3000/queries/custom_search -%>
 
 <h1>Results</h1>
+<% if @results.present? %>
+<div class="table">
+	<table id="example" class="display">
+		<tr>
+			<% @results.fetch(0).each do |row, index| %>
+				<th> <%= row%>	</th>
+			<% end %>		  
+		</tr>
+	
+		  <% @results.each_with_index do |row, index| %>
+		    
+		      <% row.each_with_index do |value, ind| %>
+		        <td> <%= value[1] %> </td>
+		      <% end %>
+		    </tr>
+		  <% end %>
+		
+	</table>
+</div>
+<% end %>
 
-<%= params.inspect %>
 <br>
+<%= @results %>
+<br><br>
+<%= params.inspect %>
+<br><br>
 <%= params[:cname] %>
 
-<br>
-<%#= params[:flag] %>
 <br>
 <div class="btn btn-primary">
 	<%= link_to "New Query", 'query_directory', id: 'btn_link' %>

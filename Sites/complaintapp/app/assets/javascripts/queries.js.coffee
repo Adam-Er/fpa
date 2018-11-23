@@ -5,9 +5,9 @@ $(document).on "turbolinks:load", ->
         showOn: 'both',
         changeMonth: true,
         changeYear: true,
-        defaultDate: new Date(2011, 12 - 1, 1),
-        minDate: new Date(2011, 12 - 1, 1),
-        maxDate: new Date(2018, 9 - 1, 5),
+        defaultDate: new Date(2012, 1 - 1, 1),
+        minDate: new Date(2012, 1 - 1, 1),
+        maxDate: new Date(2018, 8 - 1, 31),
         onSelect: (date) ->
             `var date`
             date_start = $('#start_date').datepicker('getDate')
@@ -24,8 +24,8 @@ $(document).on "turbolinks:load", ->
         showOn: 'both',
         changeMonth: true,
         changeYear: true,
-        defaultDate: new Date(2018, 9 - 1, 5),
-        minDate: new Date(2011, 12 - 1, 1),
-        maxDate: new Date(2018, 9 - 1, 5)
+        defaultDate: new Date(2018, 8 - 1, 31),
+        minDate: new Date(2012, 1 - 1, 1),
+        maxDate: new Date(2018, 8 - 1, 31)
     });
 

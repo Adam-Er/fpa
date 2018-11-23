@@ -53,7 +53,6 @@ class QueriesController < ApplicationController
 
 	def custom_search
 		# Custom Search Logic using parameters
-		query = "select"
 		num = 0
 		
 		# If company name(s) are selected
@@ -439,8 +438,10 @@ class QueriesController < ApplicationController
 		 		dates += "and "
 		 	end
 	 		num = num + 1
-		 	dates += "(date_received > to_date('"
+		 	dates += "(date_received between to_date('"
 		 	dates += params[:start_date]
+		 	dates += "', 'MM/DD/YYYY') and to_date('"
+		 	dates += "08/31/2018"
 		 	dates += "', 'MM/DD/YYYY'))"
 		# If only an end date is selected
 		elsif (params[:start_date].blank? && !params[:end_date].blank?)
@@ -450,23 +451,42 @@ class QueriesController < ApplicationController
 		 		dates += "and "
 		 	end
 	 		num = num + 1
-		 	dates += "(date_received < to_date('"
+	 		dates += "(date_received between to_date('"
+		 	dates += "01/01/2012"
+		 	dates += "', 'MM/DD/YYYY') and to_date('"
 		 	dates += params[:end_date]
+		 	dates += "', 'MM/DD/YYYY'))"
+	 	# If no dates are selected
+		else
+			if num < 1
+		 		dates += "where "
+		 	else
+		 		dates += "and "
+		 	end
+	 		num = num + 1
+		 	dates += "(date_received between to_date('"
+		 	dates += "01/01/2012"
+		 	dates += "', 'MM/DD/YYYY') and to_date('"
+		 	dates += "08/31/2018"
 		 	dates += "', 'MM/DD/YYYY'))"
 		end
 
-
 		where = companies + product + demo + submission + states + dates
-		query = "select count(*) from camoen.complaint "
+		query = " (select * from camoen.complaint "
 		query += where
-		puts query
-		testing = ApplicationRecord.execQuery(query);
-		puts testing
+		query += ")"
+		# The base set of data to be analyzed can now be gathered from query
+
+		# tester = "select count(*) from camoen.complaint "
+		# tester += where
+		# puts tester
+		# testing = ApplicationRecord.execQuery(tester);
+		# puts testing
 
 		# If company selected, but not product
 		if (!params[:cname].blank? && params[:type].blank?)
-			puts "Company selected but not product"
-
+			query = Company_query_1 + query + Company_query_2 + query + Company_query_3 + query + Company_query_4
+			@results = ApplicationRecord.execQuery(query);
 		end
 
 	end
