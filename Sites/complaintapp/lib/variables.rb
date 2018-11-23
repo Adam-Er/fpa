@@ -76,9 +76,14 @@ module Variables
             where not (date_received < to_date('01/01/2012', 'MM/DD/YYYY') or date_received > to_date('08/31/2018', 'MM/DD/YYYY'))
             group by name, extract(year from date_received), extract(month from date_received) 
             order by extract(year from date_received) desc, mnth, count(*) desc) 
-         order by yr desc, mnth) 
-    where Rownumber < 6) 
-    natural join 
+         order by yr desc, mnth) "
+
+    # Company Only query uses all tuples, as does Company + Product query
+    Company_query_num = "where Rownumber > 0) "
+    # No selection query is limited to the top 5 rankings
+    Neither_query_num = "where Rownumber < 6) "
+
+    Company_query_3 = "natural join 
     ((select name, yr, yr_total, round(yr_total/12, 1) as mnthly_avg from 
         (select 
             extract(year from date_received) as yr, name, count(*) as yr_total, 
@@ -86,7 +91,7 @@ module Variables
         from
         " 
 
-    Company_query_3 = "
+    Company_query_4 = "
         where not (date_received < to_date('01/01/2012', 'MM/DD/YYYY') or date_received > to_date('12/31/2017', 'MM/DD/YYYY'))
         group by extract(year from date_received), name 
         order by extract(year from date_received) desc, count(*) desc)) 
@@ -100,11 +105,239 @@ module Variables
         from
         " 
 
-    Company_query_4 ="
+    Company_query_5 ="
         where not (date_received < to_date('01/01/2018', 'MM/DD/YYYY') or date_received > to_date('08/31/2018', 'MM/DD/YYYY'))
         group by extract(year from date_received), name 
         order by extract(year from date_received) desc, count(*) desc))) 
         order by yr desc, mnth desc, cnt desc
         " 
 
+
+    def product_query_builder(params, query)
+        new_query = "select * from
+        (select type, yr, cnt, monthly_complaint_avg from
+            (select type, yr, cnt, monthly_complaint_avg from
+               (select 'Banking' as type, 
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from bank_account)
+                group by extract(year from date_received)
+            union
+                select 'Credit Card' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from credit_card)
+                group by extract(year from date_received)
+            union
+                select 'Credit Reporting' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from credit_reporting)
+                group by extract(year from date_received)
+            union
+                select 'Money Transfer' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query  
+        new_query += "
+                where type in (select type from money_transfer)
+                group by extract(year from date_received)
+            union
+                select 'Consumer Loan' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from payday_loan)
+                group by extract(year from date_received)
+            union
+                select 'Prepaid Card' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from prepaid_card)
+                group by extract(year from date_received)
+            union
+                select 'Virtual Currency' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from virtual_currency)
+                group by extract(year from date_received)
+            union
+                select type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/12,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from single_products)
+                group by type, extract(year from date_received)
+                order by type, yr desc) all_data
+            where all_data.yr != 2018 and all_data.yr != 2011)
+            union 
+            (select type, yr, cnt, monthly_complaint_avg from
+               (select 'Banking' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from bank_account)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select 'Credit Card' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from credit_card)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select 'Credit Reporting' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from credit_reporting)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select 'Money Transfer' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from money_transfer)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select 'Consumer Loan' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from payday_loan)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select 'Prepaid Card' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from prepaid_card)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select 'Virtual Currency' as type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from virtual_currency)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by extract(year from date_received)
+            union
+                select type,
+                extract(year from date_received) as yr, count(*) as cnt,
+                round(count(*)/8,1) as monthly_complaint_avg from "
+        new_query += query
+        new_query += "
+                where type in (select type from single_products)
+                and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
+                group by type, extract(year from date_received)
+                order by type, yr desc) all_data
+            where all_data.yr = 2018)) 
+        "
+
+        # Ensure that unselected types don't show up in results
+        prodnum = 0
+        product = "where "
+        if params[:type].key?("1")
+            product += "type = 'Banking' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("2")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Consumer Loan' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("3")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Credit Card' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("4")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Credit Reporting' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("5")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Debt collection' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("6")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Money Transfer' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("7")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Mortgage' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("8")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Prepaid Card' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("9")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Student loan' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("10")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Virtual Currency' "
+            prodnum = prodnum + 1
+        end
+        if params[:type].key?("11")
+            if prodnum > 0
+                product += "or "
+            end
+            product += "type = 'Other financial service' "
+            prodnum = prodnum + 1
+        end
+        product += "order by type, yr desc"
+        new_query += product
+        return new_query
+    end
 end

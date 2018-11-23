@@ -78,14 +78,13 @@ class QueriesController < ApplicationController
 		prodnum = 0
 		if (!params[:type].blank?)
 		 	if num < 1
-		 		product += "where "
+		 		product += "where ("
 		 		num = num + 1
 		 	end
 			if params[:type].key?("1")
 		 		if num > 1
-					product += "and "
+					product += "and ("
 		 		end
-		 		product += "("
 				product += "type in (select type from camoen.bank_account) "
 		 		num = num + 1
 		 		prodnum = prodnum + 1
@@ -210,9 +209,7 @@ class QueriesController < ApplicationController
 		 		num = num + 1
 		 		prodnum = prodnum + 1
 		 	end
-		 	if prodnum > 1
-		 		product += ") "
-		 	end
+	 		product += ") "
 			puts product
 		end
 
@@ -487,7 +484,36 @@ class QueriesController < ApplicationController
 
 		# If company selected, but not product
 		if (!params[:cname].blank? && params[:type].blank?)
-			query = Company_query_1 + query + Company_query_2 + query + Company_query_3 + query + Company_query_4
+			query = Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			@results = ApplicationRecord.execQuery(query);
+		end
+		# If product selected, but not company 
+		if (params[:cname].blank? && !params[:type].blank?)
+			query = product_query_builder(params, query)
+			@results = ApplicationRecord.execQuery(query);
+		end
+		# If company and product are selected
+		if (!params[:cname].blank? && !params[:type].blank?)
+			query = Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			@results = ApplicationRecord.execQuery(query);
+		end
+		# If neither company or product are selected
+		if (params[:cname].blank? && params[:type].blank?)
+			# Get companies that appear in the first 5 rankings
+			query = Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			getnames = "select distinct name from (" + query + ")"
+			names = ApplicationRecord.execQuery(getnames);
+			query = "(select * from camoen.complaint where ("
+			names.each_with_index do |row, index|
+		    	row.each_with_index do |value, ind|
+		        	puts value[1]
+		        	query += "name = '" + value[1] + "' or "
+		        end
+		    end
+		    query = query.first(-3)
+		    query += "))"
+		    # Get ranking results
+			query = Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			@results = ApplicationRecord.execQuery(query);
 		end
 
