@@ -182,7 +182,7 @@ class QueriesController < ApplicationController
 						product += "and ("
 					end
 		 		end
-				product += "type = 'Student Loan' "
+				product += "type = 'Student loan' "
 		 		num = num + 1
 		 		prodnum = prodnum + 1
 		 	end
