@@ -210,8 +210,10 @@ class QueriesController < ApplicationController
 		 		num = num + 1
 		 		prodnum = prodnum + 1
 		 	end
-		 	product += ") "
-			#puts product
+		 	if prodnum > 1
+		 		product += ") "
+		 	end
+			puts product
 		end
 
 		# If demographic is selected
@@ -477,11 +479,11 @@ class QueriesController < ApplicationController
 		query += ")"
 		# The base set of data to be analyzed can now be gathered from query
 
-		# tester = "select count(*) from camoen.complaint "
-		# tester += where
+		tester = "select count(*) from camoen.complaint "
+		tester += where
 		# puts tester
-		# testing = ApplicationRecord.execQuery(tester);
-		# puts testing
+		testing = ApplicationRecord.execQuery(tester);
+		puts testing
 
 		# If company selected, but not product
 		if (!params[:cname].blank? && params[:type].blank?)
