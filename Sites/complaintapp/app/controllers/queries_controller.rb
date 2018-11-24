@@ -478,29 +478,47 @@ class QueriesController < ApplicationController
 
 		tester = "select count(*) from camoen.complaint "
 		tester += where
-		# puts tester
+		#puts tester
 		testing = ApplicationRecord.execQuery(tester);
 		puts testing
 
-		# If company selected, but not product
-		if (!params[:cname].blank? && params[:type].blank?)
-			query = Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
-			@results = ApplicationRecord.execQuery(query);
-		end
+
+
 		# If product selected, but not company 
 		if (params[:cname].blank? && !params[:type].blank?)
-			query = product_query_builder(params, query)
+			# Dated and undated queries must be handled separately
+			if (params[:start_date].blank? && params[:end_date].blank?)
+				query = product_query_builder(params, query)
+			else
+				query = product_query_builder_dated(params, query)
+			end
+			@results = ApplicationRecord.execQuery(query);
+		end
+
+		# Queries with specified dates will need to be handled separately
+		dated = ""
+		# If no date paremeters are selected
+		if (params[:start_date].blank? && params[:end_date].blank?)
+			dated = Company_no_dates
+		else
+			# If there is at least one date parameter selected
+			dated = Company_dates
+		end
+		
+		# If company selected, but not product
+		if (!params[:cname].blank? && params[:type].blank?)
+			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			@results = ApplicationRecord.execQuery(query);
 		end
 		# If company and product are selected
 		if (!params[:cname].blank? && !params[:type].blank?)
-			query = Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			@results = ApplicationRecord.execQuery(query);
 		end
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
 			# Get companies that appear in the first 5 rankings
-			query = Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			getnames = "select distinct name from (" + query + ")"
 			names = ApplicationRecord.execQuery(getnames);
 			query = "(select * from camoen.complaint where ("
@@ -513,7 +531,7 @@ class QueriesController < ApplicationController
 		    query = query.first(-3)
 		    query += "))"
 		    # Get ranking results
-			query = Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			@results = ApplicationRecord.execQuery(query);
 		end
 
