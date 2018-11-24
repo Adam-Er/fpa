@@ -21,34 +21,12 @@ class QueriesController < ApplicationController
 		# Replace above line with below for faster load times during development (if needed)
 		# @names = ApplicationRecord.execQuery("select distinct name from camoen.complaint where rownum <= 5 order by name");
 	end
-	
 
 	def complaint_rankings
-		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
-		# @results = c.execute("select * from camoen.complaint where rownum <= 10")
-		# while r = @results.fetch()
-		# 	puts r.join(',')
-		# end
-		# @results.close
-
-		
-		# results.each do |result|
-		#   	puts result[0]
-		# end
-
-		# for result in @results
-		# 	result.name #|  posting.time | posting.salary 
-		# end
-
-		# def index
-		#   	@telephone_records = TelephoneRecord.all
-		# end
-		
-	end
-
-	# Forms for Custom User Query
-	def create
-	 	#@tags = params[:flag]
+		query = "camoen.complaint "
+		dated = Company_no_dates
+		query = default_company_query(dated, query)
+		@results = ApplicationRecord.execQuery(query);
 	end
 
 	def custom_search
@@ -70,7 +48,6 @@ class QueriesController < ApplicationController
 				num = num + 1
 			end
 			companies += ") "
-			#puts companies
 		end
 
 		# If product type is selected
@@ -210,7 +187,6 @@ class QueriesController < ApplicationController
 		 		prodnum = prodnum + 1
 		 	end
 	 		product += ") "
-			puts product
 		end
 
 		# If demographic is selected
@@ -262,7 +238,6 @@ class QueriesController < ApplicationController
 		 		num = num + 1
 		 	end
 		 	demo += ") "
-		 	#puts demo
 		end
 		# If "Not Older American" and "Not Service Member" are selected
 		# but "All Other Demographics" is not selected
@@ -311,14 +286,14 @@ class QueriesController < ApplicationController
 		subnum = 0
 		if (!params[:sub].blank?)
 		 	if num < 1
-		 		submission += "where "
+		 		submission += "where ("
 		 		num = num + 1
 		 	end
 			if params[:sub].key?("1")
 		 		if num > 1
 					submission += "and "
 		 		end
-				submission += "(submitted_via = 'Email' "
+				submission += "submitted_via = 'Email' "
 		 		num = num + 1
 		 		subnum = subnum + 1
 		 	end
@@ -383,7 +358,6 @@ class QueriesController < ApplicationController
 		 		subnum = subnum + 1
 		 	end
 		 	submission += ") "
-		 	#puts submission
 		end
 
 		# If state(s) are selected
@@ -403,15 +377,12 @@ class QueriesController < ApplicationController
 					end
 				end
 				states += "state = '"
-				puts i[0]
-				puts @@State_list[i[0]]
 				states += @@State_list[i[0]]
 				states += "' "
 				num = num + 1
 				statenum = statenum + 1
 			end
 			states += ") "
-			#puts states
 		end
 
 		# If date(s) are selected
@@ -516,27 +487,14 @@ class QueriesController < ApplicationController
 		end
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
-			# Get companies that appear in the first 5 rankings
-			query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
-			getnames = "select distinct name from (" + query + ")"
-			names = ApplicationRecord.execQuery(getnames);
-			query = "(select * from camoen.complaint where ("
-			names.each_with_index do |row, index|
-		    	row.each_with_index do |value, ind|
-		        	puts value[1]
-		        	query += "name = '" + value[1] + "' or "
-		        end
-		    end
-		    query = query.first(-3)
-		    query += "))"
-		    # Get ranking results
-			query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			query = default_company_query(dated, query)
 			@results = ApplicationRecord.execQuery(query);
 		end
 
 	end
 
 	def product_rankings
+		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
 	end
 
 	def timeliness_rankings

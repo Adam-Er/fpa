@@ -86,7 +86,11 @@ module Variables
 
     # Company Only query uses all tuples, as does Company + Product query
     Company_query_num = "where Rownumber > 0) "
-    # No selection query is limited to the top 5 rankings
+
+    # Limits ranking queries to the top 5 rankings
+    # Note, this number can be adjusted if too many results are returned.
+    # For some sparse filters (for ex. submission method = Fax), many companies
+    # may have appeared at least once in the top 5 rankings.
     Neither_query_num = "where Rownumber < 6) "
 
     Company_query_3 = "natural join 
@@ -115,7 +119,7 @@ module Variables
         where not (date_received < to_date('01/01/2018', 'MM/DD/YYYY') or date_received > to_date('08/31/2018', 'MM/DD/YYYY'))
         group by extract(year from date_received), name 
         order by extract(year from date_received) desc, count(*) desc))) 
-        order by yr desc, mnth desc, cnt desc
+        order by yr desc, mnth desc, cnt desc, ranking
         " 
 
 
@@ -575,5 +579,23 @@ module Variables
         return new_query
     end
 
+    # For Predefined Query #1 and custom queries with only filters
+    def default_company_query(dated, query)
+        # Get names of all companies that appear in the first 5 rankings
+        query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+        getnames = "select distinct name from (" + query + ")"
+        names = ApplicationRecord.execQuery(getnames);
+        query = "(select * from camoen.complaint where ("
+        names.each_with_index do |row, index|
+            row.each_with_index do |value, ind|
+                query += "name = '" + value[1] + "' or "
+            end
+        end
+        query = query.first(-3)
+        query += "))"
+        # Get ranking results
+        query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+        return query
+    end
 
 end
