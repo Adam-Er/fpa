@@ -234,17 +234,25 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 field form-group">
+			<div class="col-md-4 field form-group date_selector">
 				<div class="form_category">Select Date Range:
 					<span class="tooltiptext">Default shows all results.
 					</span>
 				</div>
 				<div class="form-group calendar">
 				  	<%= text_field_tag("start_date", "", :readonly => true) %>
-					<%= label_tag "start_date", "Start Date"%>
+					<%= label_tag "start_date", "Start Date", class: 'date_label' %>
 					<%= text_field_tag("end_date", "", :readonly => true) %>
-					<%= label_tag "end_date", "End Date"%>
+					<%= label_tag "end_date", "End Date", class: 'date_label' %>
 				</div>
+			</div>
+			<div class="col-md-8 date_explanation">
+				<div class="form_category">Ramifications of Date Selection:</div>
+				<br>
+				<ul>
+					<li>Default behavior, when no range is selected, includes all data from January 1st, 2012, through August 31st, 2018. Results will include computed monthly average numbers of complaints (on a year-by-year basis) for the specified product types and/or companies.</li>
+					<li>When a date range is selected, monthly averages will not be computed.  Instead, an exact number of complaints for each month within the specified range will be returned. Note that the first and last months will only include complaints that are in range, not their true monthly total.</li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-12 text-center">

@@ -482,8 +482,7 @@ class QueriesController < ApplicationController
 		testing = ApplicationRecord.execQuery(tester);
 		puts testing
 
-
-
+		# Return query results based on selected categories
 		# If product selected, but not company 
 		if (params[:cname].blank? && !params[:type].blank?)
 			# Dated and undated queries must be handled separately
@@ -504,7 +503,7 @@ class QueriesController < ApplicationController
 			# If there is at least one date parameter selected
 			dated = Company_dates
 		end
-		
+
 		# If company selected, but not product
 		if (!params[:cname].blank? && params[:type].blank?)
 			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
