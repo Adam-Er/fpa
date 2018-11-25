@@ -501,7 +501,10 @@ class QueriesController < ApplicationController
 	end
 
 	def timeliness_rankings
-		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
+		partition_cnt = "no_cnt"
+		partition_pct = "round(no_cnt/(no_cnt+yes_cnt),2)"
+		@cnt_results = ApplicationRecord.execQuery(timely_query(partition_cnt));
+		@pct_results = ApplicationRecord.execQuery(timely_query(partition_pct));
 	end
 
 	def dispute_rankings

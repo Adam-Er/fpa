@@ -601,4 +601,29 @@ module Variables
         return query
     end
 
+    # For Predefined Query #3 (Response Timeliness)
+    def timely_query(partition)
+        query = "
+        select * from
+            (select Row_Number() over (partition by yr order by "
+        # Partition selects "total untimely response count" or "untimely response percentage"
+        query += partition
+        query += " desc)
+            as Ranking,
+            name, yr, yes_cnt, no_cnt, round(no_cnt/(no_cnt+yes_cnt),2)*100 as untimely_pct from
+                (select name as name,
+                 extract(year from date_received) as yr, count(*) as yes_cnt from complaint
+                 where response_timely = 'Yes'
+                 group by name, extract(year from date_received))
+            natural join
+                (select name as name,
+                 extract(year from date_received) as yr, count(*) as no_cnt from complaint
+                 where response_timely = 'No'
+                 group by name, extract(year from date_received)))
+        where Ranking < 6   /* Choose only top 5 worst performers from each year */
+        order by yr desc, ranking
+        "
+        return query
+    end
+
 end
