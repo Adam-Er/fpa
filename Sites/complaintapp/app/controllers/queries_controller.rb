@@ -494,13 +494,18 @@ class QueriesController < ApplicationController
 	end
 
 	def product_rankings
-		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
+		query = "camoen.complaint "
+		query = product_query_builder(params, query);
+		query += "order by yr desc, monthly_complaint_avg desc, type "
+		@results = ApplicationRecord.execQuery(query);
 	end
 
 	def timeliness_rankings
+		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
 	end
 
 	def dispute_rankings
+		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
 	end
 
 

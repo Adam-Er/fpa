@@ -2,8 +2,25 @@
 <%-# http://localhost:3000/queries/product_rankings -%>
 
 <h1>Products Ranked by Complaint Count</h1>
-
+<div class="table">
+	<table id="example" class="display">
+		<tr>
+			<% @results.fetch(0).each do |row, index| %>
+				<th> <%= row%>	</th>
+			<% end %>		  
+		</tr>
+	
+		  <% @results.each_with_index do |row, index| %>
+		    
+		      <% row.each_with_index do |value, ind| %>
+		        <td> <%= value[1] %> </td>
+		      <% end %>
+		    </tr>
+		  <% end %>
+		
+	</table>
+</div>
 
 <div class="btn btn-primary btn_bottom">
-	<%= link_to "New Query", 'query_directory', id: 'btn_link' %>
+	<%= link_to "New Search", 'query_directory', id: 'btn_link' %>
 </div>

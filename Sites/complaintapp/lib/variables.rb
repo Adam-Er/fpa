@@ -270,84 +270,87 @@ module Variables
         "
 
         # Ensure that unselected types don't show up in results
-        prodnum = 0
-        product = "where "
-        if params[:type].key?("1")
-            product += "type = 'Banking' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("2")
-            if prodnum > 0
-                product += "or "
+        if (!params[:type].blank?)
+            prodnum = 0
+            product = "where "
+            if params[:type].key?("1")
+                product += "type = 'Banking' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Consumer Loan' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("3")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("2")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Consumer Loan' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Credit Card' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("4")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("3")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Credit Card' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Credit Reporting' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("5")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("4")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Credit Reporting' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Debt collection' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("6")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("5")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Debt collection' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Money Transfer' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("7")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("6")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Money Transfer' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Mortgage' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("8")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("7")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Mortgage' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Prepaid Card' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("9")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("8")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Prepaid Card' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Student loan' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("10")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("9")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Student loan' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Virtual Currency' "
-            prodnum = prodnum + 1
-        end
-        if params[:type].key?("11")
-            if prodnum > 0
-                product += "or "
+            if params[:type].key?("10")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Virtual Currency' "
+                prodnum = prodnum + 1
             end
-            product += "type = 'Other financial service' "
-            prodnum = prodnum + 1
+            if params[:type].key?("11")
+                if prodnum > 0
+                    product += "or "
+                end
+                product += "type = 'Other financial service' "
+                prodnum = prodnum + 1
+            end
+            product += "order by type, yr desc"
+            new_query += product
         end
-        product += "order by type, yr desc"
-        new_query += product
+
         return new_query
     end
 
