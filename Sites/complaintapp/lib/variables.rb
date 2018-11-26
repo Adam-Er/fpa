@@ -626,6 +626,30 @@ module Variables
         return query
     end
 
+    # For Predefined Query #4 (Disputed Resolutions)
+    def dispute_query(partition)
+        query = "
+        select * from
+            (select Row_Number() over (partition by yr order by "
+        # Partition selects "total untimely response count" or "untimely response percentage"
+        query += partition
+        query += " desc) as Ranking,
+            name, yr, yes_cnt, no_cnt, round(yes_cnt/(no_cnt+yes_cnt),2)*100 as disputed_pct from
+                (select name as name,
+                 extract(year from date_received) as yr, count(*) as yes_cnt from complaint
+                 where resolution_disputed = 'Yes'
+                 group by name, extract(year from date_received))
+            natural join
+                (select name as name,
+                 extract(year from date_received) as yr, count(*) as no_cnt from complaint
+                 where resolution_disputed = 'No'
+                 group by name, extract(year from date_received)))
+        where Ranking < 6   /* Choose only top 5 worst performers from each year */
+        order by yr desc, ranking
+        "
+        return query
+    end
+
     # For custom queries with only filters
     def default_custom_query(dated, query, daterange)
         # Get names of all companies that appear in the first 5 rankings

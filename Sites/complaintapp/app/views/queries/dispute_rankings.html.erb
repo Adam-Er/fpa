@@ -3,4 +3,44 @@
 
 <h1>Companies Ranked by Disputed Resolutions</h1>
 
+<%-# !!! NOTE !!! Implement each of these results as a series of bargraphs. There will be 5 entries for each year 2011-2018. Each bar will represent one of the 5 companies for the given year.  The y-axis will either be "total number of untimely responses" for the first set of results, and "percentage of untimely responses" for the second set. -%>
 
+<h3>Ranked by Total Number of Disputed Resolutions</h3>
+<div class="table">
+	<table id="example" class="display">
+		<tr>
+			<% @cnt_results.fetch(0).each do |row, index| %>
+				<th> <%= row%>	</th>
+			<% end %>		  
+		</tr>
+	
+		  <% @cnt_results.each_with_index do |row, index| %>
+		    
+		      <% row.each_with_index do |value, ind| %>
+		        <td> <%= value[1] %> </td>
+		      <% end %>
+		    </tr>
+		  <% end %>
+		
+	</table>
+</div>
+
+<h3>Ranked by Percentage of Disputed Resolutions</h3>
+<div class="table">
+	<table id="example" class="display">
+		<tr>
+			<% @pct_results.fetch(0).each do |row, index| %>
+				<th> <%= row%>	</th>
+			<% end %>		  
+		</tr>
+	
+		  <% @pct_results.each_with_index do |row, index| %>
+		    
+		      <% row.each_with_index do |value, ind| %>
+		        <td> <%= value[1] %> </td>
+		      <% end %>
+		    </tr>
+		  <% end %>
+		
+	</table>
+</div>

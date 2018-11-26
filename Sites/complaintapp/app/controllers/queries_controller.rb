@@ -517,9 +517,14 @@ class QueriesController < ApplicationController
 	end
 
 	def dispute_rankings
-		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
+		partition_cnt = "yes_cnt"
+		partition_pct = "round(yes_cnt/(no_cnt+yes_cnt),2)"
+		@cnt_results = ApplicationRecord.execQuery(dispute_query(partition_cnt));
+		@pct_results = ApplicationRecord.execQuery(dispute_query(partition_pct));
 		render :layout => "results"
 	end
+
+	#@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
 
 
 end
