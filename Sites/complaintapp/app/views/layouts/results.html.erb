@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Financial Protection Advisor</title>
+    <%= csrf_meta_tags %>
+
+	<%= stylesheet_link_tag    'default', media: 'all' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+  </head>
+
+  <body>
+ 	<nav class="navbar py-md-1 navbar-expand-sm navbar-dark bg-dark">
+ 		<a class="navbar-brand" href="/queries/query_directory">FPA</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+ 			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+	    <ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<%= link_to "Query Directory", 'query_directory', :class => "nav-link" %>
+			</li>
+			<li class="nav-item">
+				<%= link_to "Log-in", root_path, :class => "nav-link" %>
+			</li>
+    	</ul>
+  	</div>
+	</nav>
+
+	<div id = "main-container" class="container rounded">
+  		<%= yield %>
+
+	  	<div class="btn btn-primary btn_bottom">
+			<%= link_to "New Search", 'query_directory', id: 'btn_link' %>
+		</div>
+	</div>
+  
+  </body>
+</html>

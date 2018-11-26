@@ -27,6 +27,7 @@ class QueriesController < ApplicationController
 		dated = Company_no_dates
 		query = default_company_query(dated, query)
 		@results = ApplicationRecord.execQuery(query);
+		render :layout => "results"
 	end
 
 	def custom_search
@@ -56,8 +57,8 @@ class QueriesController < ApplicationController
 		if (!params[:type].blank?)
 		 	if num < 1
 		 		product += "where ("
-		 		num = num + 1
 		 	end
+		 	num = num + 1
 			if params[:type].key?("1")
 		 		if num > 1
 					product += "and ("
@@ -195,8 +196,8 @@ class QueriesController < ApplicationController
 		if (!params[:demo].blank?)
 		 	if num < 1
 		 		demo += "where "
-		 		num = num + 1
 		 	end
+		 	num = num + 1
 		 	if params[:demo].key?("1")
 		 		if num > 1
 					demo += "and "
@@ -247,10 +248,10 @@ class QueriesController < ApplicationController
 				demo = ""
 				if num < 1
 			 		demo += "where "
-			 		num = num + 1
 			 	else
 			 		demo += "and "
 			 	end
+			 	num = num + 1
 				demo += "tag is null "
 			end
 			# If only "Not Older American" is selected
@@ -260,10 +261,10 @@ class QueriesController < ApplicationController
 				demo = ""
 				if num < 1
 			 		demo += "where "
-			 		num = num + 1
 			 	else
 			 		demo += "and "
 			 	end
+			 	num = num + 1
 				demo += "(tag is null or tag not like '%Older%') "
 			end
 			# If only "Not Service Member" is selected
@@ -273,10 +274,10 @@ class QueriesController < ApplicationController
 				demo = ""
 				if num < 1
 			 		demo += "where "
-			 		num = num + 1
 			 	else
 			 		demo += "and "
 			 	end
+			 	num = num + 1
 				demo += "(tag is null or tag not like '%Service%') "
 			end
 		end
@@ -287,11 +288,11 @@ class QueriesController < ApplicationController
 		if (!params[:sub].blank?)
 		 	if num < 1
 		 		submission += "where ("
-		 		num = num + 1
 		 	end
+		 	num = num + 1
 			if params[:sub].key?("1")
 		 		if num > 1
-					submission += "and "
+					submission += "and ("
 		 		end
 				submission += "submitted_via = 'Email' "
 		 		num = num + 1
@@ -366,8 +367,8 @@ class QueriesController < ApplicationController
 		if (!params[:state].blank?)
 			if num < 1
 		 		submission += "where ("
-		 		num = num + 1
 		 	end
+		 	num = num + 1
 			params[:state].each do |i|
 				if num > 1
 					if statenum > 0
@@ -387,6 +388,7 @@ class QueriesController < ApplicationController
 
 		# If date(s) are selected
 		dates = ""
+		daterange = ""
 		# If both dates are selected
 		if (!params[:start_date].blank? && !params[:end_date].blank?)
 			if num < 1
@@ -395,11 +397,12 @@ class QueriesController < ApplicationController
 		 		dates += "and "
 		 	end
 		 	num = num + 1
-		 	dates += "(date_received between to_date('"
-		 	dates += params[:start_date]
-		 	dates += "', 'MM/DD/YYYY') and to_date('"
-		 	dates += params[:end_date]
-		 	dates += "', 'MM/DD/YYYY'))"
+		 	daterange += "(date_received between to_date('"
+		 	daterange += params[:start_date]
+		 	daterange += "', 'MM/DD/YYYY') and to_date('"
+		 	daterange += params[:end_date]
+		 	daterange += "', 'MM/DD/YYYY'))"
+		 	dates += daterange
 		# If only a start date is selected
 		elsif (!params[:start_date].blank? && params[:end_date].blank?)
 			if num < 1
@@ -408,11 +411,12 @@ class QueriesController < ApplicationController
 		 		dates += "and "
 		 	end
 	 		num = num + 1
-		 	dates += "(date_received between to_date('"
-		 	dates += params[:start_date]
-		 	dates += "', 'MM/DD/YYYY') and to_date('"
-		 	dates += "08/31/2018"
-		 	dates += "', 'MM/DD/YYYY'))"
+		 	daterange += "(date_received between to_date('"
+		 	daterange += params[:start_date]
+		 	daterange += "', 'MM/DD/YYYY') and to_date('"
+		 	daterange += "08/31/2018"
+		 	daterange += "', 'MM/DD/YYYY'))"
+		 	dates += daterange
 		# If only an end date is selected
 		elsif (params[:start_date].blank? && !params[:end_date].blank?)
 			if num < 1
@@ -421,11 +425,12 @@ class QueriesController < ApplicationController
 		 		dates += "and "
 		 	end
 	 		num = num + 1
-	 		dates += "(date_received between to_date('"
-		 	dates += "01/01/2012"
-		 	dates += "', 'MM/DD/YYYY') and to_date('"
-		 	dates += params[:end_date]
-		 	dates += "', 'MM/DD/YYYY'))"
+	 		daterange += "(date_received between to_date('"
+		 	daterange += "01/01/2012"
+		 	daterange += "', 'MM/DD/YYYY') and to_date('"
+		 	daterange += params[:end_date]
+		 	daterange += "', 'MM/DD/YYYY'))"
+		 	dates += daterange
 	 	# If no dates are selected
 		else
 			if num < 1
@@ -434,11 +439,12 @@ class QueriesController < ApplicationController
 		 		dates += "and "
 		 	end
 	 		num = num + 1
-		 	dates += "(date_received between to_date('"
-		 	dates += "01/01/2012"
-		 	dates += "', 'MM/DD/YYYY') and to_date('"
-		 	dates += "08/31/2018"
-		 	dates += "', 'MM/DD/YYYY'))"
+		 	daterange += "(date_received between to_date('"
+		 	daterange += "01/01/2012"
+		 	daterange += "', 'MM/DD/YYYY') and to_date('"
+		 	daterange += "08/31/2018"
+		 	daterange += "', 'MM/DD/YYYY'))"
+		 	dates += daterange
 		end
 
 		where = companies + product + demo + submission + states + dates
@@ -487,10 +493,11 @@ class QueriesController < ApplicationController
 		end
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
-			query = default_company_query(dated, query)
+			query = default_custom_query(dated, query, daterange)
 			@results = ApplicationRecord.execQuery(query);
 		end
 
+		render :layout => "results"
 	end
 
 	def product_rankings
@@ -498,6 +505,7 @@ class QueriesController < ApplicationController
 		query = product_query_builder(params, query);
 		query += "order by yr desc, monthly_complaint_avg desc, type "
 		@results = ApplicationRecord.execQuery(query);
+		render :layout => "results"
 	end
 
 	def timeliness_rankings
@@ -505,10 +513,12 @@ class QueriesController < ApplicationController
 		partition_pct = "round(no_cnt/(no_cnt+yes_cnt),2)"
 		@cnt_results = ApplicationRecord.execQuery(timely_query(partition_cnt));
 		@pct_results = ApplicationRecord.execQuery(timely_query(partition_pct));
+		render :layout => "results"
 	end
 
 	def dispute_rankings
 		@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
+		render :layout => "results"
 	end
 
 

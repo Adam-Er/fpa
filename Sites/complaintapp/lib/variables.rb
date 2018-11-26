@@ -582,7 +582,7 @@ module Variables
         return new_query
     end
 
-    # For Predefined Query #1 and custom queries with only filters
+    # For Predefined Query #1
     def default_company_query(dated, query)
         # Get names of all companies that appear in the first 5 rankings
         query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
@@ -625,5 +625,26 @@ module Variables
         "
         return query
     end
+
+    # For custom queries with only filters
+    def default_custom_query(dated, query, daterange)
+        # Get names of all companies that appear in the first 5 rankings
+        query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+        getnames = "select distinct name from (" + query + ")"
+        names = ApplicationRecord.execQuery(getnames);
+        query = "(select * from camoen.complaint where ("
+        names.each_with_index do |row, index|
+            row.each_with_index do |value, ind|
+                query += "name = '" + value[1] + "' or "
+            end
+        end
+        query = query.first(-3)
+        query += ")"
+        query += "and " + daterange + ")"
+        # Get ranking results
+        query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+        return query
+    end
+
 
 end
