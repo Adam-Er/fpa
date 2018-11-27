@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'queries/product_rankings'
   get 'queries/timeliness_rankings'
   get 'queries/dispute_rankings'
+  get 'queries/company_deep_dive'
+  get 'queries/product_deep_dive'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 

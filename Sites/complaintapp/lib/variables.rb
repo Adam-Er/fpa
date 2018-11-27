@@ -670,5 +670,48 @@ module Variables
         return query
     end
 
+    # For company and product deep dive
+    def dive_query(query)
+        newquery = "
+        select  extract(month from date_received) as mnth,
+                extract(year from date_received) as yr,
+                count(*) from camoen.complaint "
+
+        newquery += query
+        newquery += "
+        and not (date_received < to_date('01/01/2012', 'MM/DD/YYYY') or date_received > to_date('08/31/2018', 'MM/DD/YYYY'))
+        group by extract(year from date_received), extract(month from date_received)
+        order by yr desc, mnth desc
+        "
+        return newquery
+    end
+
+    Products = {
+        "Banking" => "type in (select type from camoen.bank_account) ",
+        "Consumer Loan" => "type in (select type from camoen.payday_loan) ",
+        "Credit Card" => "type in (select type from camoen.credit_card) ",
+        "Credit Reporting" => "type in (select type from camoen.credit_reporting) ",
+        "Debt Collection" => "type = 'Debt collection' ",
+        "Money Transfer" => "type in (select type from camoen.money_transfer) ",
+        "Mortgage" => "type = 'Mortgage' ",
+        "Prepaid Card" => "type in (select type from camoen.prepaid_card) ",
+        "Student Loan" => "type = 'Student loan' ",
+        "Virtual Currency" => "type in (select type from camoen.virtual_currency) ",
+        "Other" => "type = 'Other financial service' ",
+        }
+
+    Products_Reverse = {
+        "type in (select type from camoen.bank_account) " => "Banking",
+        "type in (select type from camoen.payday_loan) " => "Consumer Loan",
+        "type in (select type from camoen.credit_card) " => "Credit Card",
+        "type in (select type from camoen.credit_reporting) " => "Credit Reporting",
+        "type = 'Debt collection' " => "Debt Collection",
+        "type in (select type from camoen.money_transfer) " => "Money Transfer",
+        "type = 'Mortgage' " => "Mortgage",
+        "type in (select type from camoen.prepaid_card) " => "Prepaid Card",
+        "type = 'Student loan' " => "Student Loan",
+        "type in (select type from camoen.virtual_currency) " => "Virtual Currency",
+        "type = 'Other financial service' " => "Other",
+        }
 
 end

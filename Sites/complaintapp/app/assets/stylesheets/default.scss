@@ -10,11 +10,21 @@ body {
 h1 {
 	text-align: center;
 	padding-top: 1rem;
-	padding-bottom: 2rem;
+	padding-bottom: 1rem;
+}
+
+h5 {
+	text-align: center;
+	margin-bottom: 1rem;
 }
 
 label {
 	margin-left: 0.5vw;
+}
+
+select {
+	width: 100%;
+	max-width: 90%;
 }
 
 .calendar label {
@@ -32,6 +42,10 @@ label {
 #custom_search {
 	margin-top: 2vh;
 	//padding-bottom: 2vh;
+}
+
+#select_form {
+	overflow-x: visible;
 }
 
 .scroll_container {
@@ -149,7 +163,7 @@ label {
 }
 
 .button_row {
-	margin-bottom: 2.5rem;
+	margin-bottom: 1.5rem;
 }
 
 #company_tooltip {
@@ -161,9 +175,9 @@ label {
 }
 
 //TODO: Find a way to make buttons narrower on smallest screen size
+// Also make last two buttons same size as the rest.
 .btn.btn-primary.d-block.d-md-none {
 	margin-bottom: 1rem;
-	width: auto !important;
 }
 
 tr:nth-child(even) {background-color:black}

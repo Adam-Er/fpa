@@ -1,0 +1,30 @@
+<%-# This is the page for Company Rankings by complaint count. -%>
+<%-# http://localhost:3000/queries/product_deep_dive -%>
+
+<%#= For deep dive results, the x-axis will be months Jan-Dec.
+	The y-axis will be number of complaints.
+	Each year will have its own line plotted on the graph (use different colors.)
+	The purpose is to analyze one company's performance over the years. %>
+
+
+<h1>Product Deep Dive</h1>
+<h5>Results for <b><%= @product_name %></b></h5>
+<div class="table">
+	<table id="example" class="display">
+		<tr>
+			<% @results.fetch(0).each do |row, index| %>
+				<th> <%= row%>	</th>
+			<% end %>		  
+		</tr>
+	
+		  <% @results.each_with_index do |row, index| %>
+		    
+		      <% row.each_with_index do |value, ind| %>
+		        <td> <%= value[1] %> </td>
+		      <% end %>
+		    </tr>
+		  <% end %>
+		
+	</table>
+</div>
+

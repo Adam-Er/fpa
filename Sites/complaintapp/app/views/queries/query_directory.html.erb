@@ -6,29 +6,21 @@
 	<div class="col-md-6 text-center">
 		<i class="fa fa-building fa-3x"></i>
 		<p class="query_descriptor text-left">Which financial institutions are the least consumer friendly? To provide you with a list of the least consumer-friendly companies, we've ranked all of them by their monthly complaint averages.</p>
-		<div class="btn btn-primary d-block d-md-none">
-			<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
-		</div>
+		<%= link_to "Company Rankings", 'complaint_rankings', class: 'btn btn-primary d-block d-md-none', id: 'btn_link' %>
 	</div>
 	<div class="col-md-6 text-center">
 		<i class="fa fa-credit-card fa-3x"></i>
 		<p class="query_descriptor text-left">Which products or services are the least consumer friendly?  We've ranked the performance of ten common financial products and services over the past several years, so you can take care when applying for the worst offenders.</p>
-		<div class="btn btn-primary d-block d-md-none">
-			<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
-		</div>
+		<%= link_to "Product Rankings", 'product_rankings', class: 'btn btn-primary d-block d-md-none', id: 'btn_link' %>
 	</div>
 </div>
 <div class="d-none d-md-block">
 	<div class="row button_row">
 		<div class="col-md-6 text-center">
-			<div class="btn btn-primary">
-				<%= link_to "Company Rankings", 'complaint_rankings', id: 'btn_link' %>
-			</div>
+			<%= link_to "Company Rankings", 'complaint_rankings', class: 'btn btn-primary', id: 'btn_link' %>
 		</div>
 		<div class="col-md-6 text-center">
-			<div class="btn btn-primary">
-				<%= link_to "Product Rankings", 'product_rankings', id: 'btn_link' %>
-			</div>
+			<%= link_to "Product Rankings", 'product_rankings', class: 'btn btn-primary', id: 'btn_link' %>
 		</div>
 	</div>
 </div>
@@ -36,32 +28,79 @@
 	<div class="col-md-6 text-center">
 		<i class="fa fa-clock-o fa-3x"></i>
 		<p class="query_descriptor text-left">When a complaint is lodged, some companies are quick to try and resolve the issue... and some aren't.  We've ranked the slowest responders by two metrics:  (1) Companies with the largest quantity of sluggish responses, and (2) Companies with the largest percentage of total responses that have been deemed untimely.</p>
-		<div class="btn btn-primary d-block d-md-none">
-			<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
-		</div>
+		<%= link_to "Timeliness Rankings", 'timeliness_rankings', class: 'btn btn-primary d-block d-md-none', id: 'btn_link' %>
 	</div>
 	<div class="col-md-6 text-center">
 		<i class="fa fa-frown-o fa-3x"></i>
 		<p class="query_descriptor text-left">A complaint has been lodged, and after some significant amount of time, the company in question has come up with a (sometimes less-than-satisfactory) resolution.  We've used two metrics to rank the companies that are most likely to provide poor resolutions: (1) Annual number of disputed resolutions, and (2) Annual dispute rate, as a percentage of all resolutions provided by a company.</p>
-		<div class="btn btn-primary d-block d-md-none">
-			<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
-		</div>
+		<%= link_to "Dispute Rankings", 'dispute_rankings', class: 'btn btn-primary d-block d-md-none', id: 'btn_link' %>
 	</div>
 </div>
 <div class="d-none d-md-block">
 	<div class="row button_row">
 		<div class="col-md-6 text-center">
-			<div class="btn btn-primary">
-				<%= link_to "Timeliness Rankings", 'timeliness_rankings', id: 'btn_link' %>
-			</div>
+			<%= link_to "Timeliness Rankings", 'timeliness_rankings', class: 'btn btn-primary', id: 'btn_link' %>
 		</div>
 		<div class="col-md-6 text-center">
-			<div class="btn btn-primary">
-				<%= link_to "Dispute Rankings", 'dispute_rankings', id: 'btn_link' %>
-			</div>
+			<%= link_to "Dispute Rankings", 'dispute_rankings', class: 'btn btn-primary', id: 'btn_link' %>
 		</div>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-md-6 text-center">
+		<i class="fa fa-search fa-3x"></i>
+		<p class="query_descriptor text-left">Perhaps, instead of a ranking of the least consumer-friendly companies, you're interested in one institution in particular.  Choose an organization of interest from the dropdown list to view an analysis of its performance over the past several years.</p>
+		<br>
+		<div class="d-block d-md-none">
+			<%= form_tag '/queries/company_deep_dive', method: :get do %>
+				<div class="field form-group">
+					<%= select_tag :company_name, options_for_select(@names.collect {|p| [p['name'], p['name']]}),
+					class: 'select_form' %>
+				</div>
+				<%= submit_tag 'Company Deep Dive', class: 'btn btn-primary btn_bottom', id: 'btn_link'  %>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-md-6 text-center">
+		<i class="fa fa-line-chart fa-3x"></i>
+		<p class="query_descriptor text-left">Have certain financial products and services become more or less consumer friendly in recent years?  Choose a category of interest from the dropdown list to view an analysis of its performance over the past several years.</p>
+		<br>
+		<div class="d-block d-md-none">
+			<%= form_tag '/queries/product_deep_dive', method: :get do %>
+				<div class="field form-group">
+					<%= select_tag :product_name, options_for_select(@products),
+					class: 'select_form' %>
+				</div>
+					<%= submit_tag 'Product Deep Dive', class: 'btn btn-primary btn_bottom', id: 'btn_link'  %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="d-none d-md-block">
+	<div class="row">
+		<div class="col-md-6 text-center">
+			<%= form_tag '/queries/company_deep_dive', method: :get do %>
+				<div class="field form-group">
+					<%= select_tag :company_name, options_for_select(@names.collect {|p| [p['name'], p['name']]}),
+					class: 'select_form' %>
+				</div>
+				<%= submit_tag 'Company Deep Dive', class: 'btn btn-primary btn_bottom', id: 'btn_link'  %>
+			<% end %>
+		</div>
+		<div class="col-md-6 text-center">
+			<%= form_tag '/queries/product_deep_dive', method: :get do %>
+				<div class="field form-group">
+					<%= select_tag :product_name, options_for_select(@products),
+					class: 'select_form' %>
+				</div>
+					<%= submit_tag 'Product Deep Dive', class: 'btn btn-primary btn_bottom', id: 'btn_link'  %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
 
 
 <%# Custom User Search goes in this div -%>

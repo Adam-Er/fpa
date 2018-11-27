@@ -17,6 +17,7 @@ class QueriesController < ApplicationController
 		@State_list = @@State_list
 		#@@names = ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
 		@names = @@names
+		@products = Products
 		# @names = ApplicationRecord.execQuery("select distinct name from camoen.complaint order by name");
 		# Replace above line with below for faster load times during development (if needed)
 		# @names = ApplicationRecord.execQuery("select distinct name from camoen.complaint where rownum <= 5 order by name");
@@ -524,7 +525,25 @@ class QueriesController < ApplicationController
 		render :layout => "results"
 	end
 
-	#@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
+	def company_deep_dive
+		@company_name = params[:company_name]
+		query = "where name = '"
+		query += params[:company_name]
+		query += "'"
+		query = dive_query(query)
+		@results = ApplicationRecord.execQuery(query);
+		render :layout => "results"
+	end
 
+	def product_deep_dive
+		@product_name = Products_Reverse[params[:product_name]]
+		query = "where "
+		query += params[:product_name]
+		query = dive_query(query)
+		@results = ApplicationRecord.execQuery(query);
+		render :layout => "results"
+	end
+
+	#@results = ApplicationRecord.execQuery("select distinct name, type, submitted_via from camoen.complaint where rownum <= 50");
 
 end
