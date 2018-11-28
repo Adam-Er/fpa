@@ -113,7 +113,10 @@ select {
 }
 
 .landing_pg {
+	height: 100%;
 	padding-top: 5vh;
+	background-image: image-url('background.jpg');
+	background-size: cover;
 }
 
 .table {
