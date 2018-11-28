@@ -132,7 +132,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from bank_account)
+                where type in (select type from camoen.bank_account)
                 group by extract(year from date_received)
             union
                 select 'Credit Card' as type,
@@ -140,7 +140,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from credit_card)
+                where type in (select type from camoen.credit_card)
                 group by extract(year from date_received)
             union
                 select 'Credit Reporting' as type,
@@ -148,7 +148,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from credit_reporting)
+                where type in (select type from camoen.credit_reporting)
                 group by extract(year from date_received)
             union
                 select 'Money Transfer' as type,
@@ -156,7 +156,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query  
         new_query += "
-                where type in (select type from money_transfer)
+                where type in (select type from camoen.money_transfer)
                 group by extract(year from date_received)
             union
                 select 'Consumer Loan' as type,
@@ -164,7 +164,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from payday_loan)
+                where type in (select type from camoen.payday_loan)
                 group by extract(year from date_received)
             union
                 select 'Prepaid Card' as type,
@@ -172,7 +172,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from prepaid_card)
+                where type in (select type from camoen.prepaid_card)
                 group by extract(year from date_received)
             union
                 select 'Virtual Currency' as type,
@@ -180,7 +180,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from virtual_currency)
+                where type in (select type from camoen.virtual_currency)
                 group by extract(year from date_received)
             union
                 select type,
@@ -188,7 +188,7 @@ module Variables
                 round(count(*)/12,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from single_products)
+                where type in (select type from camoen.single_products)
                 group by type, extract(year from date_received)
                 order by type, yr desc) all_data
             where all_data.yr != 2018 and all_data.yr != 2011)
@@ -199,7 +199,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from bank_account)
+                where type in (select type from camoen.bank_account)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -208,7 +208,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from credit_card)
+                where type in (select type from camoen.credit_card)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -217,7 +217,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from credit_reporting)
+                where type in (select type from camoen.credit_reporting)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -226,7 +226,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from money_transfer)
+                where type in (select type from camoen.money_transfer)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -235,7 +235,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from payday_loan)
+                where type in (select type from camoen.payday_loan)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -244,7 +244,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from prepaid_card)
+                where type in (select type from camoen.prepaid_card)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -253,7 +253,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from virtual_currency)
+                where type in (select type from camoen.virtual_currency)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received)
             union
@@ -262,7 +262,7 @@ module Variables
                 round(count(*)/8,1) as monthly_complaint_avg from "
         new_query += query
         new_query += "
-                where type in (select type from single_products)
+                where type in (select type from camoen.single_products)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by type, extract(year from date_received)
                 order by type, yr desc) all_data
@@ -363,7 +363,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from bank_account)
+                where type in (select type from camoen.bank_account)
                 group by extract(year from date_received), extract(month from date_received)
             union
                 select 'Credit Card' as type,
@@ -371,7 +371,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from credit_card)
+                where type in (select type from camoen.credit_card)
                 group by extract(year from date_received), extract(month from date_received)
             union
                 select 'Credit Reporting' as type,
@@ -379,7 +379,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from credit_reporting)
+                where type in (select type from camoen.credit_reporting)
                 group by extract(year from date_received), extract(month from date_received)
             union
                 select 'Money Transfer' as type,
@@ -387,7 +387,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query  
         new_query += "
-                where type in (select type from money_transfer)
+                where type in (select type from camoen.money_transfer)
                 group by extract(year from date_received), extract(month from date_received)
             union
                 select 'Consumer Loan' as type,
@@ -395,7 +395,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from payday_loan)
+                where type in (select type from camoen.payday_loan)
                 group by extract(year from date_received), extract(month from date_received)
             union
                 select 'Prepaid Card' as type,
@@ -403,7 +403,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from prepaid_card)
+                where type in (select type from camoen.prepaid_card)
                 group by extract(year from date_received), extract(month from date_received), extract(month from date_received)
             union
                 select 'Virtual Currency' as type,
@@ -411,7 +411,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from virtual_currency)
+                where type in (select type from camoen.virtual_currency)
                 group by extract(year from date_received), extract(month from date_received)
             union
                 select type,
@@ -419,7 +419,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from single_products)
+                where type in (select type from camoen.single_products)
                 group by type, extract(year from date_received), extract(month from date_received)
                 order by type, yr desc, mnth desc) all_data
             where all_data.yr != 2018 and all_data.yr != 2011)
@@ -430,7 +430,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from bank_account)
+                where type in (select type from camoen.bank_account)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -439,7 +439,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from credit_card)
+                where type in (select type from camoen.credit_card)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -448,7 +448,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from credit_reporting)
+                where type in (select type from camoen.credit_reporting)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -457,7 +457,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from money_transfer)
+                where type in (select type from camoen.money_transfer)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -466,7 +466,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from payday_loan)
+                where type in (select type from camoen.payday_loan)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -475,7 +475,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from prepaid_card)
+                where type in (select type from camoen.prepaid_card)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -484,7 +484,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from virtual_currency)
+                where type in (select type from camoen.virtual_currency)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by extract(year from date_received), extract(month from date_received)
             union
@@ -493,7 +493,7 @@ module Variables
                 extract(month from date_received) as mnth, count(*) as cnt from "
         new_query += query
         new_query += "
-                where type in (select type from single_products)
+                where type in (select type from camoen.single_products)
                 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')
                 group by type, extract(year from date_received), extract(month from date_received)
                 order by type, yr desc, mnth desc) all_data
