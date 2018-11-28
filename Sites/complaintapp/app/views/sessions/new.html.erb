@@ -1,8 +1,5 @@
-
-<h1>Financial Protection Advisor</h1>
-
-<%-#= debug @results -%>
-
+<h1>Sessions#new</h1>
+<p>Find me in app/views/sessions/new.html.erb</p>
 
 <form accept-charset="UTF-8" action="/login" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
@@ -21,9 +18,5 @@
 <% if @results == 'FAILED' %>
 <div class="alert alert-<%= :danger %>"><%= 'Invalid user/password combination' %></div>
 <% end %>
-
-<div class="btn btn-primary">
-  <%= link_to "Continue", 'queries/query_directory', id: 'btn_link' %>
-</div>
 
 <%= @results %>

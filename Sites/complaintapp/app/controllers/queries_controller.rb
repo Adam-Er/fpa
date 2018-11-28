@@ -11,6 +11,19 @@ class QueriesController < ApplicationController
 	end
 
 	def dashboard
+		name = session[:user]
+	  	pass = session[:password]
+	  	query = "(select * from camoen.users)"
+	  	query = ApplicationRecord.execQuery(query)
+	  	realName = query[0]["username"]
+	  	realPass = query[0]["password"]
+	  	@results = session[:user]
+	  	if (!(name == realName && pass == realPass))
+	  		@results = 5;
+	  		redirect_to '/login'
+	  	end
+	  	render :layout => "landing_page"
+
 	end
 	
 	def query_directory
