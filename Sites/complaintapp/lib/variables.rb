@@ -107,7 +107,7 @@ module Variables
         order by extract(year from date_received) desc, count(*) desc)) 
     union  
     (select name, yr, yr_total, round(yr_total/ 
-    (select count(distinct extract(month from date_received)) from complaint 
+    (select count(distinct extract(month from date_received)) from camoen.complaint 
     where extract(year from date_received) = 2018 and date_received < to_date('09/01/2018', 'MM/DD/YYYY')), 1) as mnthly_avg from 
         (select 
             extract(year from date_received) as yr, name, count(*) as yr_total, 
@@ -612,12 +612,12 @@ module Variables
             as Ranking,
             name, yr, yes_cnt, no_cnt, round(no_cnt/(no_cnt+yes_cnt),2)*100 as untimely_pct from
                 (select name as name,
-                 extract(year from date_received) as yr, count(*) as yes_cnt from complaint
+                 extract(year from date_received) as yr, count(*) as yes_cnt from camoen.complaint
                  where response_timely = 'Yes'
                  group by name, extract(year from date_received))
             natural join
                 (select name as name,
-                 extract(year from date_received) as yr, count(*) as no_cnt from complaint
+                 extract(year from date_received) as yr, count(*) as no_cnt from camoen.complaint
                  where response_timely = 'No'
                  group by name, extract(year from date_received)))
         where Ranking < 6   /* Choose only top 5 worst performers from each year */
@@ -636,12 +636,12 @@ module Variables
         query += " desc) as Ranking,
             name, yr, yes_cnt, no_cnt, round(yes_cnt/(no_cnt+yes_cnt),2)*100 as disputed_pct from
                 (select name as name,
-                 extract(year from date_received) as yr, count(*) as yes_cnt from complaint
+                 extract(year from date_received) as yr, count(*) as yes_cnt from camoen.complaint
                  where resolution_disputed = 'Yes'
                  group by name, extract(year from date_received))
             natural join
                 (select name as name,
-                 extract(year from date_received) as yr, count(*) as no_cnt from complaint
+                 extract(year from date_received) as yr, count(*) as no_cnt from camoen.complaint
                  where resolution_disputed = 'No'
                  group by name, extract(year from date_received)))
         where Ranking < 6   /* Choose only top 5 worst performers from each year */
