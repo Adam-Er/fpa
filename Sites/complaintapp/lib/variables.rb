@@ -68,6 +68,7 @@ module Variables
     # Don't return potentially inaccurate results (year total, monthly average) when date range is selected
     # Note that month counts may be partial, if date range doesn't include a whole month
     Company_dates = "select Ranking, name, mnth as Month, cnt as mnth_cnt, yr as Year from "
+
     
     # Return all results when no date range is selected
     Company_no_dates = "select Ranking, name, mnth as Month, cnt as mnth_cnt, yr as Year, yr_total, mnthly_avg from "
@@ -582,6 +583,11 @@ module Variables
         return new_query
     end
 
+    Refine_results = "
+    select Row_Number() over (partition by Year order by Monthly_Average desc) as Ranking, Name, Year, Monthly_Average from
+        (select distinct name as Name, Year, mnthly_avg as Monthly_Average from ( "
+    Refine_results2 = ")) order by Year desc, Monthly_Average desc"
+
     # For Predefined Query #1
     def default_company_query(dated, query)
         # Get names of all companies that appear in the first 5 rankings
@@ -598,7 +604,9 @@ module Variables
         query += "))"
         # Get ranking results
         query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
-        return query
+        refined_query = Refine_results
+        refined_query += query + Refine_results2
+        return refined_query
     end
 
     # For Predefined Query #3 (Response Timeliness)
@@ -668,21 +676,23 @@ module Variables
         query += "and " + where.last(-6) + ")"
         # Get ranking results
         query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
-        return query
+        refined_query = Refine_results
+        refined_query += query + Refine_results2
+        return refined_query
     end
 
     # For company and product deep dive
     def dive_query(query)
         newquery = "
-        select  extract(month from date_received) as mnth,
-                extract(year from date_received) as yr,
-                count(*) from camoen.complaint "
+        select  extract(month from date_received) as Month,
+                extract(year from date_received) as Year,
+                count(*) as Count from camoen.complaint "
 
         newquery += query
         newquery += "
         and not (date_received < to_date('01/01/2012', 'MM/DD/YYYY') or date_received > to_date('08/31/2018', 'MM/DD/YYYY'))
         group by extract(year from date_received), extract(month from date_received)
-        order by yr desc, mnth desc
+        order by Year desc, Month desc
         "
         return newquery
     end
