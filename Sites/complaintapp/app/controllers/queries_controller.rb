@@ -498,16 +498,25 @@ class QueriesController < ApplicationController
 		# If company selected, but not product
 		if (!params[:cname].blank? && params[:type].blank?)
 			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			if (dated == Company_no_dates)
+				query = Refine_results + query + Refine_results2
+			end
 			@results = ApplicationRecord.execQuery(query);
 		end
 		# If company and product are selected
 		if (!params[:cname].blank? && !params[:type].blank?)
 			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
+			if (dated == Company_no_dates)
+				query = Refine_results + query + Refine_results2
+			end
 			@results = ApplicationRecord.execQuery(query);
 		end
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
 			query = default_custom_query(dated, query, daterange, where)
+			if (dated == Company_no_dates)
+				query = Refine_results + query + Refine_results2
+			end
 			@results = ApplicationRecord.execQuery(query);
 		end
 

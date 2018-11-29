@@ -676,9 +676,7 @@ module Variables
         query += "and " + where.last(-6) + ")"
         # Get ranking results
         query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
-        refined_query = Refine_results
-        refined_query += query + Refine_results2
-        return refined_query
+        return query
     end
 
     # For company and product deep dive
