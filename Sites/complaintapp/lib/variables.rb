@@ -651,7 +651,7 @@ module Variables
     end
 
     # For custom queries with only filters
-    def default_custom_query(dated, query, daterange)
+    def default_custom_query(dated, query, daterange, where)
         # Get names of all companies that appear in the first 5 rankings
         query = dated + Company_query_1 + query + Company_query_2 + Neither_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
         getnames = "select distinct name from (" + query + ")"
@@ -663,8 +663,9 @@ module Variables
             end
         end
         query = query.first(-3)
-        query += ")"
-        query += "and " + daterange + ")"
+        query += ") "
+        #query += "and " + daterange + ")"
+        query += "and " + where.last(-6) + ")"
         # Get ranking results
         query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
         return query

@@ -507,7 +507,7 @@ class QueriesController < ApplicationController
 		end
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
-			query = default_custom_query(dated, query, daterange)
+			query = default_custom_query(dated, query, daterange, where)
 			@results = ApplicationRecord.execQuery(query);
 		end
 
