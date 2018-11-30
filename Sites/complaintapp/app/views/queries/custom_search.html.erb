@@ -3,6 +3,9 @@
 
 <h1>Results</h1>
 <% if @results.present? %>
+
+<br>
+<b>Tabular Results:</b>
 <div class="table">
 	<table id="example" class="display">
 		<tr>
@@ -22,13 +25,11 @@
 	</table>
 </div>
 <% end %>
-
-<br>
+<% if !(@results.present?) %>
+<h5>No results found!  Try broadening your search.</h5>
+<% end %>
 <%#= @results %>
-<br><br>
-<%= params.inspect %>
-<br><br>
+<%#= params.inspect %>
 <%#= params[:cname] %>
-
 <br>
 

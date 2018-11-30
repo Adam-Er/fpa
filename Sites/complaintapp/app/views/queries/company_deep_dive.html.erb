@@ -9,8 +9,11 @@
 
 <h1>Company Deep Dive</h1>
 <h5>Results for <b><%= @company_name %></b></h5>
+
+<br>
+<b>Tabular Results:</b>
 <div class="table">
-	<table id="example" class="display">
+	<table id="result_table">
 		<tr>
 			<% @results.fetch(0).each do |row, index| %>
 				<th> <%= row%>	</th>
@@ -27,4 +30,6 @@
 		
 	</table>
 </div>
+
+
 

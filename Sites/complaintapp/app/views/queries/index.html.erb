@@ -3,7 +3,33 @@
 
 <%-#= debug @results -%>
 
+<div class="intro">
+<p>The Consumer Financial Protection Bureau receives hundreds of thousands of consumer
+  complaints about products and services annually.  We've created Financial Protection Advisor
+  to educate consumers about their options when choosing a business to work with, or when
+  applying for a financial product.</p>
+  <ul>
+    <li>Which institutions or products and services are the least consumer friendly?</li>
+    <li>Does Company A or Company B receive more complaints about a particular product or service?</li>
+    <li>Are smaller, local institutions more reliable than nationwide corporations?</li>
+  </ul>
+  It's time to hold companies accountable for their actions. To find the answers to these questions (and more), click "Enter" to get started!</p>
+</div>
 
+<div class = "text-center">
+  <div class="btn btn-primary">
+    <%= link_to "Enter", 'queries/query_directory', id: 'btn_link' %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<% if false %>
 <form accept-charset="UTF-8" action="/login" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <input name="authenticity_token" type="hidden"
@@ -22,8 +48,6 @@
 <div class="alert alert-<%= :danger %>"><%= 'Invalid user/password combination' %></div>
 <% end %>
 
-<div class="btn btn-primary">
-  <%= link_to "Continue", 'queries/query_directory', id: 'btn_link' %>
-</div>
-
 <%= @results %>
+
+<% end %>

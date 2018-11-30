@@ -67,11 +67,11 @@ module Variables
 
     # Don't return potentially inaccurate results (year total, monthly average) when date range is selected
     # Note that month counts may be partial, if date range doesn't include a whole month
-    Company_dates = "select Ranking, name, mnth as Month, cnt as mnth_cnt, yr as Year from "
+    Company_dates = "select Ranking, name, mnth as Month, cnt as Month_Count, yr as Year from "
 
     
     # Return all results when no date range is selected
-    Company_no_dates = "select Ranking, name, mnth as Month, cnt as mnth_cnt, yr as Year, yr_total, mnthly_avg from "
+    Company_no_dates = "select Ranking, name, mnth as Month, cnt as Month_Count, yr as Year, yr_total, mnthly_avg from "
     Company_query_1 = " 
     (select Rownumber as Ranking, name, mnth, yr, cnt from 
         (select Row_Number() over (partition by yr, mnth order by cnt desc) 
@@ -125,7 +125,7 @@ module Variables
 
 
     def product_query_builder(params, query)
-        new_query = "select * from
+        new_query = "select type as Product, yr as Year, cnt as Count, monthly_complaint_avg as Monthly_Average from
         (select type, yr, cnt, monthly_complaint_avg from
             (select type, yr, cnt, monthly_complaint_avg from
                (select 'Banking' as type, 
@@ -356,7 +356,7 @@ module Variables
     end
 
     def product_query_builder_dated(params, query)
-        new_query = "select * from
+        new_query = "select type as Product, yr as Year, mnth as Month, mnth_cnt as Month_Count from
         (select type, yr, mnth, cnt as mnth_cnt from
             (select type, yr, mnth, cnt from
                (select 'Banking' as type, 
@@ -612,7 +612,7 @@ module Variables
     # For Predefined Query #3 (Response Timeliness)
     def timely_query(partition)
         query = "
-        select * from
+        select Ranking, name, yr as Year, yes_cnt as Timely, no_cnt as Untimely, untimely_pct as Percent_Untimely from
             (select Row_Number() over (partition by yr order by "
         # Partition selects "total untimely response count" or "untimely response percentage"
         query += partition
@@ -637,7 +637,7 @@ module Variables
     # For Predefined Query #4 (Disputed Resolutions)
     def dispute_query(partition)
         query = "
-        select * from
+        select Ranking, name, yr as Year, yes_cnt as Disputed, no_cnt as Undisputed, disputed_pct as Percent_Disputed from
             (select Row_Number() over (partition by yr order by "
         # Partition selects "total untimely response count" or "untimely response percentage"
         query += partition
