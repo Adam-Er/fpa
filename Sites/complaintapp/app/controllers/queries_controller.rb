@@ -508,8 +508,16 @@ class QueriesController < ApplicationController
 			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			if (dated == Company_no_dates)
 				query = Refine_results + query + Refine_results2
+				@results = ApplicationRecord.execQuery(query);
+				# get datasets for company and product, undated
+				@custom3_undated = custom3(@results)
+			else
+				@results = ApplicationRecord.execQuery(query);
+				@custom3_dated = custom3dated(@results)
 			end
-			@results = ApplicationRecord.execQuery(query);
+			
+			
+
 		end
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
@@ -555,7 +563,6 @@ class QueriesController < ApplicationController
 		query = dive_query(query)
 		@results = ApplicationRecord.execQuery(query)
 		@datablocks = get_dive_data(@results)
-
 		render :layout => "results"
 	end
 
@@ -566,7 +573,6 @@ class QueriesController < ApplicationController
 		query = dive_query(query)
 		@results = ApplicationRecord.execQuery(query)
 		@datablocks = get_dive_data(@results)
-
 		render :layout => "results"
 	end
 

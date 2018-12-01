@@ -727,6 +727,15 @@ module Variables
               "#c11ba8", "#a8142a", "#1499a8", "#291463", "#a9bc54", "#594020",
               "#1f211c", "#16ffc8", "#ff16c1"]
 
+    def get_color(index)
+        if index >= Colors.size
+            color = "#" + ("%06x" % (rand * 0xffffff))
+        else
+            color = Colors[index]
+        end
+        return color
+    end
+
     def get_dive_data(results)
         # Make datasets for chart.js
         year = results[0]["year"]
@@ -762,13 +771,187 @@ module Variables
             block = {}
             block["data"] = i
             block["label"] = years[years_index].to_s
-            block["borderColor"] = Colors[years_index];
+            block["borderColor"] = get_color(years_index);
             block["fill"] = false
             datablocks << block
             years_index += 1
         end
+        puts datablocks
         return datablocks
     end
 
+
+    def custom3(results)
+        # Get years for the x-axis labels
+        year = results[0]["year"]
+        years = [year]
+        results.each do |row|
+            if row["year"] != year
+                years << row["year"]
+                year = row["year"]
+            end
+        end
+        x_axis = years.reverse.collect{|i| i.to_s}
+
+        # Get company labels
+        companies = []
+        results.each do |row|
+            # Uniquely appends each company name
+            companies |= [row["name"]]
+        end
+
+        # Get empty array with enough room for each unique year
+        year_set = []
+        for x in x_axis do
+            year_set << 0
+        end
+
+        datasets = []
+        for i in companies do
+            ind = 0
+            data = []
+            data += year_set
+            results.each do |row|
+                if row["name"] == i
+                    while (ind < years.size-1 && row["year"] != years[ind])
+                        data[ind] = 0
+                        ind += 1
+                    end
+                    if row["year"] == years[ind]
+                        # Convert to float to prevent "BigDecimal" values
+                        # BigDecimals aren't accepted by Chart.js
+                        data[ind] = row["monthly_average"].to_f
+                    end
+                    ind += 1
+                end
+            end
+            datasets << data.reverse
+        end
+
+        for i in datasets
+            puts "i: "
+            puts i
+        end
+        
+        # At this point, datasets is two-dimensional array
+        # Each internal array includes the data for each company
+        # [[1, 2, 3,...], [1, 2, 3,...]] 
+        # First array is Company A, years 1, 2, 3,...; second array is Company B, etc.
+
+        # Generate the data blocks
+        datablocks = [];
+        companies_index = 0;
+        for i in datasets do
+            block = {}
+            block["data"] = i
+            block["label"] = companies[companies_index]
+            block["borderColor"] = get_color(companies_index)
+            block["fill"] = false
+            block["x_axis"] = x_axis
+            datablocks << block
+            companies_index += 1
+        end
+        puts datablocks
+        return datablocks
+    end
+
+    def custom3dated(results)
+        # # Get years for the x-axis labels
+        # year = results[0]["year"]
+        # years = [year]
+        # results.each do |row|
+        #     if row["year"] != year
+        #         years << row["year"]
+        #         year = row["year"]
+        #     end
+        # end
+        # x_axis = years.reverse.collect{|i| i.to_s}
+
+        # # Get months for x-axis labels
+        # month = results[0]["month"]
+        # months = [month]
+        # results.each do |row|
+        #     if row["month"] != month
+        #         months << row["month"]
+        #         month = row["month"]
+        #     end
+        # end
+
+        # Get months and years for x-axis labels
+        labels = []
+        results.each do |row|
+            month = row["month"]
+            year = row["year"]
+            label = month.to_s + "/" + year.to_s[-2..-1]
+            labels |= [label]
+        end
+
+        # Get company labels
+        companies = []
+        results.each do |row|
+            # Uniquely appends each company name
+            companies |= [row["name"]]
+        end
+
+        # Get empty array with enough room for each unique month/year
+        date_set = []
+        for x in labels do
+            date_set << 0
+        end
+
+        datasets = []
+        for i in companies do
+            ind = 0
+            data = []
+            data += date_set
+            results.each do |row|
+                if row["name"] == i
+                    # While month or year are not the same (and still in range of labels)
+                    while (ind < labels.size-1 &&
+                        (row["year"].to_s[-2..-1] != labels[ind][-2..-1] ||
+                        row["month"].to_s != labels[ind].split("/")[0]))
+                            data[ind] = 0
+                            ind += 1
+                    end
+                    if (row["year"].to_s[-2..-1] == labels[ind][-2..-1] &&
+                        row["month"].to_s == labels[ind].split("/")[0])
+                            data[ind] = row["month_count"]
+                    end
+                    ind += 1
+                end
+            end
+            datasets << data.reverse
+        end
+        # Put labels in chronological order
+        labels = labels.reverse
+
+        # for i in datasets
+        #     puts "i: "
+        #     puts i
+        # end
+        
+        # At this point, datasets is two-dimensional array
+        # Each internal array includes the data for each company
+        # [[1, 2, 3,...], [1, 2, 3,...]] 
+        # First array is Company A, month/year combination 1, 2, 3,...;
+        # Second array is Company B, etc.
+
+        
+        # # Generate the data blocks
+        # datablocks = [];
+        # companies_index = 0;
+        # for i in datasets do
+        #     block = {}
+        #     block["data"] = i
+        #     block["label"] = companies[companies_index]
+        #     block["borderColor"] = get_color(companies_index)
+        #     block["fill"] = false
+        #     block["x_axis"] = x_axis
+        #     datablocks << block
+        #     companies_index += 1
+        # end
+        # puts datablocks
+        # return datablocks
+    end
 
 end

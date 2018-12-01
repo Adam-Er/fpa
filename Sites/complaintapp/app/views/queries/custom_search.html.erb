@@ -4,29 +4,71 @@
 <h1>Results</h1>
 <% if @results.present? %>
 
-<br>
-<b>Tabular Results:</b>
-<div class="table">
-	<table id="example" class="display">
-		<tr>
-			<% @results.fetch(0).each do |row, index| %>
-				<th> <%= row%>	</th>
-			<% end %>		  
-		</tr>
-	
-		  <% @results.each_with_index do |row, index| %>
-		    
-		      <% row.each_with_index do |value, ind| %>
-		        <td> <%= value[1] %> </td>
-		      <% end %>
-		    </tr>
-		  <% end %>
+	<% if @custom3_undated.present? %>
+		<canvas id="line-chart" width="800" height="450"></canvas>
+		<script>
+		new Chart(document.getElementById("line-chart"), {
+		  type: 'line',
+		  data: {
+		    labels: [
+		    	<% @custom3_undated[0]["x_axis"].each do |label| %>
+		    	<%= label %>,
+		    	<% end %>
+		    ],
+		    datasets: [
+		    	<% @custom3_undated.each do |block| %>
+		        {
+		            data: <%=block["data"]%>,
+		            label: '<%=block["label"]%>',
+		            borderColor: '<%=block["borderColor"]%>',
+		            fill: false
+		        },
+		        <% end %>
+		    ]
+		  },
+		  options: {
+		    title: {
+		      display: true,
+		      text: 'Monthly Average Number of Complaints (per year)'
+		    }
+		  }
+		});
+		</script>
+		<br>
+		<p class="graph_note">*The 2018 average includes all months through August.</p>
+	<% end %>
+
+
+
+
+
+
+
+
+	<br>
+	<b>Tabular Results:</b>
+	<div class="table">
+		<table id="example" class="display">
+			<tr>
+				<% @results.fetch(0).each do |row, index| %>
+					<th> <%= row%>	</th>
+				<% end %>		  
+			</tr>
 		
-	</table>
-</div>
+			  <% @results.each_with_index do |row, index| %>
+			    
+			      <% row.each_with_index do |value, ind| %>
+			        <td> <%= value[1] %> </td>
+			      <% end %>
+			    </tr>
+			  <% end %>
+			
+		</table>
+	</div>
 <% end %>
+
 <% if !(@results.present?) %>
-<h5>No results found!  Try broadening your search.</h5>
+	<h5>No results found!  Try broadening your search.</h5>
 <% end %>
 <%#= @results %>
 <%#= params.inspect %>
