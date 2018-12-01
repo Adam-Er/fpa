@@ -563,6 +563,50 @@ class QueriesController < ApplicationController
 		query += params[:product_name]
 		query = dive_query(query)
 		@results = ApplicationRecord.execQuery(query);
+
+		# Make datasets for chart.js
+		year = @results[0]["year"]
+		years = [year]
+		@results.each do |row|
+			if row["year"] != year
+				years << row["year"]
+				year = row["year"]
+			end
+		end
+
+		datasets = []
+		years = years.reverse
+		for i in years do
+			year_set = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			@results.each do |row|
+				if row["year"] == i
+					year_set[row["month"]-1] = row["count"]
+				end
+			end
+			datasets << year_set
+		end
+		
+		# At this point, datasets is two-dimensional array
+		# Each internal array includes the data for each year
+		# [[1, 2, 3, 4, 5,... ], [1, 2, 3, ...]] 
+		# First array is 2012, months 1-12, second array is 2013, etc.
+
+		# Generate the data blocks
+		datablocks = [];
+		years_index = 0;
+		for i in datasets do
+			block = {}
+			block["data"] = i
+			block["label"] = years[years_index].to_s
+			block["borderColor"] = Colors[years_index];
+			block["fill"] = false
+			datablocks << block
+			years_index += 1
+		end
+		@datablocks = datablocks
+		puts "Datablock 0"
+		puts datablocks[0]
+
 		render :layout => "results"
 	end
 

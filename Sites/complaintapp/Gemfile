@@ -60,3 +60,6 @@ gem 'font-awesome-rails'
 
 # Gem for Jquery Calendar
 gem 'jquery-ui-rails'
+
+# Gem for Charts
+gem 'chartjs-ror'

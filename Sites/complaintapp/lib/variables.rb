@@ -723,4 +723,10 @@ module Variables
         "type = 'Other financial service' " => "Other",
         }
 
+    Colors = ["#4286f4", "#f47741", "#e8d833", "#71cc2c", "#2bcc86", "#7d29c6", 
+              "#c11ba8", "#a8142a", "#1499a8", "#291463", "#a9bc54", "#594020",
+              "#1f211c", "#16ffc8", "#ff16c1"]
+
+
+
 end

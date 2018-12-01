@@ -10,6 +10,55 @@
 <h1>Product Deep Dive</h1>
 <h5>Results for <b><%= @product_name %></b></h5>
 
+<canvas id="line-chart" width="800" height="450"></canvas>
+<script>
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+    	<% @datablocks.each do |block| %>
+        {
+            data: <%=block["data"]%>,
+            label: '<%=block["label"]%>',
+            borderColor: '<%=block["borderColor"]%>',
+            fill: false
+        },
+        <% end %>
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Number of complaints monthly per year for ' + "<%== @company_name %>"
+    }
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <br>
 <b>Tabular Results:</b>
 <div class="table">
@@ -30,4 +79,5 @@
 		
 	</table>
 </div>
+
 

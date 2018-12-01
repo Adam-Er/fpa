@@ -16,4 +16,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery-ui/widgets/datepicker
+//= require Chart.min
 //= require_tree .
