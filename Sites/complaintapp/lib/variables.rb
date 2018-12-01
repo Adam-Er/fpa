@@ -727,6 +727,48 @@ module Variables
               "#c11ba8", "#a8142a", "#1499a8", "#291463", "#a9bc54", "#594020",
               "#1f211c", "#16ffc8", "#ff16c1"]
 
+    def get_dive_data(results)
+        # Make datasets for chart.js
+        year = results[0]["year"]
+        years = [year]
+        results.each do |row|
+            if row["year"] != year
+                years << row["year"]
+                year = row["year"]
+            end
+        end
+
+        datasets = []
+        years = years.reverse
+        for i in years do
+            year_set = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            results.each do |row|
+                if row["year"] == i
+                    year_set[row["month"]-1] = row["count"]
+                end
+            end
+            datasets << year_set
+        end
+        
+        # At this point, datasets is two-dimensional array
+        # Each internal array includes the data for each year
+        # [[1, 2, 3, 4, 5,... ], [1, 2, 3, ...]] 
+        # First array is 2012, months 1-12, second array is 2013, etc.
+
+        # Generate the data blocks
+        datablocks = [];
+        years_index = 0;
+        for i in datasets do
+            block = {}
+            block["data"] = i
+            block["label"] = years[years_index].to_s
+            block["borderColor"] = Colors[years_index];
+            block["fill"] = false
+            datablocks << block
+            years_index += 1
+        end
+        return datablocks
+    end
 
 
 end
