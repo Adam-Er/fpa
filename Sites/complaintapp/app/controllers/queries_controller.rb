@@ -479,10 +479,13 @@ class QueriesController < ApplicationController
 			# Dated and undated queries must be handled separately
 			if (params[:start_date].blank? && params[:end_date].blank?)
 				query = product_query_builder(params, query)
+				@results = ApplicationRecord.execQuery(query);
+				@custom_undated = custom_prod(@results)
 			else
 				query = product_query_builder_dated(params, query)
+				@results = ApplicationRecord.execQuery(query);
+				@custom_dated = custom_prod_dated(@results)
 			end
-			@results = ApplicationRecord.execQuery(query);
 		end
 
 		# Queries with specified dates will need to be handled separately
@@ -500,32 +503,38 @@ class QueriesController < ApplicationController
 			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			if (dated == Company_no_dates)
 				query = Refine_results + query + Refine_results2
+				@results = ApplicationRecord.execQuery(query);
+				@custom_undated = custom_comp(@results)
+			else
+				@results = ApplicationRecord.execQuery(query);
+				@custom_dated = custom_comp_dated(@results)
 			end
-			@results = ApplicationRecord.execQuery(query);
 		end
+
 		# If company and product are selected
 		if (!params[:cname].blank? && !params[:type].blank?)
 			query = dated + Company_query_1 + query + Company_query_2 + Company_query_num + Company_query_3 + query + Company_query_4 + query + Company_query_5
 			if (dated == Company_no_dates)
 				query = Refine_results + query + Refine_results2
 				@results = ApplicationRecord.execQuery(query);
-				# get datasets for company and product, undated
-				@custom3_undated = custom3(@results)
+				@custom_undated = custom_comp(@results)
 			else
 				@results = ApplicationRecord.execQuery(query);
-				@custom3_dated = custom3dated(@results)
-			end
-			
-			
-
+				@custom_dated = custom_comp_dated(@results)
+			end	
 		end
+
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
 			query = default_custom_query(dated, query, daterange, where)
 			if (dated == Company_no_dates)
 				query = Refine_results + query + Refine_results2
+				@results = ApplicationRecord.execQuery(query);
+				@custom_undated = custom_comp(@results)
+			else
+				@results = ApplicationRecord.execQuery(query);
+				@custom_dated = custom_comp_dated(@results)
 			end
-			@results = ApplicationRecord.execQuery(query);
 		end
 
 		render :layout => "results"

@@ -780,8 +780,149 @@ module Variables
         return datablocks
     end
 
+    # Process custom query data for graphs, products only
+    def custom_prod(results)
+        # Get years for the x-axis labels
+        year = results[0]["year"]
+        years = [year]
+        results.each do |row|
+            years |= [row["year"]]
+        end
+        x_axis = years.reverse.collect{|i| i.to_s}
 
-    def custom3(results)
+        # Get product labels
+        products = []
+        results.each do |row|
+            # Uniquely appends each product type
+            products |= [row["product"]]
+        end
+
+        # Get empty array with enough room for each unique year
+        year_set = []
+        for x in x_axis do
+            year_set << 0
+        end
+
+        datasets = []
+        for i in products do
+            ind = 0
+            data = []
+            data += year_set
+            results.each do |row|
+                if row["product"] == i
+                    while (ind < years.size-1 && row["year"] != years[ind])
+                        data[ind] = 0
+                        ind += 1
+                    end
+                    if row["year"] == years[ind]
+                        # Convert to float to prevent "BigDecimal" values
+                        # BigDecimals aren't accepted by Chart.js
+                        data[ind] = row["monthly_average"].to_f
+                    end
+                    ind += 1
+                end
+            end
+            datasets << data.reverse
+        end
+        
+        # At this point, datasets is two-dimensional array
+        # Each internal array includes the data for each product
+        # [[1, 2, 3,...], [1, 2, 3,...]] 
+        # First array is Product A, years 1, 2, 3,...; second array is Product B, etc.
+
+        # Generate the data blocks
+        datablocks = [];
+        products_index = 0;
+        for i in datasets do
+            block = {}
+            block["data"] = i
+            block["label"] = products[products_index]
+            block["borderColor"] = get_color(products_index)
+            block["fill"] = false
+            block["x_axis"] = x_axis
+            datablocks << block
+            products_index += 1
+        end
+        puts datablocks
+        return datablocks
+    end
+
+
+    # Process custom query data for graphs, products only (with date selection)
+    def custom_prod_dated(results)
+        # Get months and years for x-axis labels
+        labels = []
+        results.each do |row|
+            month = row["month"]
+            year = row["year"]
+            label = month.to_s + "/" + year.to_s[-2..-1]
+            labels |= [label]
+        end
+
+        # Get product labels
+        products = []
+        results.each do |row|
+            # Uniquely appends each product type
+            products |= [row["product"]]
+        end
+
+        # Get empty array with enough room for each unique month/year
+        date_set = []
+        for x in labels do
+            date_set << 0
+        end
+
+        datasets = []
+        for i in products do
+            ind = 0
+            data = []
+            data += date_set
+            results.each do |row|
+                if row["product"] == i
+                    # While month or year are not the same (and still in range of labels)
+                    while (ind < labels.size-1 &&
+                        (row["year"].to_s[-2..-1] != labels[ind][-2..-1] ||
+                        row["month"].to_s != labels[ind].split("/")[0]))
+                            data[ind] = 0
+                            ind += 1
+                    end
+                    if (row["year"].to_s[-2..-1] == labels[ind][-2..-1] &&
+                        row["month"].to_s == labels[ind].split("/")[0])
+                            data[ind] = row["month_count"]
+                    end
+                    ind += 1
+                end
+            end
+            datasets << data.reverse
+        end
+        # Put labels in chronological order
+        labels = labels.reverse
+
+        # At this point, datasets is two-dimensional array
+        # Each internal array includes the data for each product
+        # [[1, 2, 3,...], [1, 2, 3,...]] 
+        # First array is Product A, month/year combination 1, 2, 3,...;
+        # Second array is Product B, etc.
+        
+        # Generate the data blocks
+        datablocks = [];
+        products_index = 0;
+        for i in datasets do
+            block = {}
+            block["data"] = i
+            block["label"] = products[products_index]
+            block["borderColor"] = get_color(products_index)
+            block["fill"] = false
+            block["x_axis"] = labels
+            datablocks << block
+            products_index += 1
+        end
+        puts datablocks
+        return datablocks
+    end
+
+    # Process custom query data for graphs, companies only
+    def custom_comp(results)
         # Get years for the x-axis labels
         year = results[0]["year"]
         years = [year]
@@ -827,11 +968,6 @@ module Variables
             end
             datasets << data.reverse
         end
-
-        for i in datasets
-            puts "i: "
-            puts i
-        end
         
         # At this point, datasets is two-dimensional array
         # Each internal array includes the data for each company
@@ -855,28 +991,8 @@ module Variables
         return datablocks
     end
 
-    def custom3dated(results)
-        # # Get years for the x-axis labels
-        # year = results[0]["year"]
-        # years = [year]
-        # results.each do |row|
-        #     if row["year"] != year
-        #         years << row["year"]
-        #         year = row["year"]
-        #     end
-        # end
-        # x_axis = years.reverse.collect{|i| i.to_s}
-
-        # # Get months for x-axis labels
-        # month = results[0]["month"]
-        # months = [month]
-        # results.each do |row|
-        #     if row["month"] != month
-        #         months << row["month"]
-        #         month = row["month"]
-        #     end
-        # end
-
+    # Process custom query data for graphs, companies only (with date selection)
+    def custom_comp_dated(results)
         # Get months and years for x-axis labels
         labels = []
         results.each do |row|
@@ -925,33 +1041,27 @@ module Variables
         # Put labels in chronological order
         labels = labels.reverse
 
-        # for i in datasets
-        #     puts "i: "
-        #     puts i
-        # end
-        
         # At this point, datasets is two-dimensional array
         # Each internal array includes the data for each company
         # [[1, 2, 3,...], [1, 2, 3,...]] 
         # First array is Company A, month/year combination 1, 2, 3,...;
         # Second array is Company B, etc.
-
         
-        # # Generate the data blocks
-        # datablocks = [];
-        # companies_index = 0;
-        # for i in datasets do
-        #     block = {}
-        #     block["data"] = i
-        #     block["label"] = companies[companies_index]
-        #     block["borderColor"] = get_color(companies_index)
-        #     block["fill"] = false
-        #     block["x_axis"] = x_axis
-        #     datablocks << block
-        #     companies_index += 1
-        # end
-        # puts datablocks
-        # return datablocks
+        # Generate the data blocks
+        datablocks = [];
+        companies_index = 0;
+        for i in datasets do
+            block = {}
+            block["data"] = i
+            block["label"] = companies[companies_index]
+            block["borderColor"] = get_color(companies_index)
+            block["fill"] = false
+            block["x_axis"] = labels
+            datablocks << block
+            companies_index += 1
+        end
+        puts datablocks
+        return datablocks
     end
 
 end

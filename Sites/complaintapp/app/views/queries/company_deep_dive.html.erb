@@ -10,10 +10,6 @@
 <h1>Company Deep Dive</h1>
 <h5>Results for <b><%= @company_name %></b></h5>
 
-<% @datablocks.each do |block| %>
-    <%= block["data"] %>
-<% end %>
-
 <canvas id="line-chart" width="800" height="450"></canvas>
 <script>
 new Chart(document.getElementById("line-chart"), {
@@ -39,9 +35,9 @@ new Chart(document.getElementById("line-chart"), {
   }
 });
 </script>
-
-
 <br>
+<p class="graph_note">*Data unavailable after August 2018. For larger companies, zeroes are often indicative of unavailable data.</p>
+
 <b>Tabular Results:</b>
 <div class="table">
 	<table id="result_table">
