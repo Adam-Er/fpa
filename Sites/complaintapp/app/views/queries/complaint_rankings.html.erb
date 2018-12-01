@@ -2,8 +2,40 @@
 <%-# http://localhost:3000/queries/complaint_rankings -%>
 
 <h1>Companies Ranked by Complaint Count</h1>
+<% if @graph_data.present? %>
+	<canvas id="line-chart" width="800" height="450"></canvas>
+	<script>
+	new Chart(document.getElementById("line-chart"), {
+	  type: 'line',
+	  data: {
+	    labels: [
+	    	<% @graph_data[0]["x_axis"].each do |label| %>
+	    	<%= label %>,
+	    	<% end %>
+	    ],
+	    datasets: [
+	    	<% @graph_data.each do |block| %>
+	        {
+	            data: <%=block["data"]%>,
+	            label: '<%=block["label"]%>',
+	            borderColor: '<%=block["borderColor"]%>',
+	            fill: false
+	        },
+	        <% end %>
+	    ]
+	  },
+	  options: {
+	    title: {
+	      display: true,
+	      text: 'Monthly Average Number of Complaints (per year)'
+	    }
+	  }
+	});
+	</script>
+	<br>
+	<p class="graph_note">*The 2018 average includes all months through August.</p>
+<% end %>
 
-<br>
 <b>Tabular Results:</b>
 <div class="table">
 	<table id="example" class="display">

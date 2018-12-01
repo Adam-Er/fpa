@@ -41,6 +41,7 @@ class QueriesController < ApplicationController
 		dated = Company_no_dates
 		query = default_company_query(dated, query)
 		@results = ApplicationRecord.execQuery(query);
+		@graph_data = custom_comp(@results)
 		render :layout => "results"
 	end
 
@@ -543,8 +544,9 @@ class QueriesController < ApplicationController
 	def product_rankings
 		query = "camoen.complaint "
 		query = product_query_builder(params, query);
-		query += "order by yr desc, monthly_complaint_avg desc, type "
+		query += "order by yr desc, type "
 		@results = ApplicationRecord.execQuery(query);
+		@graph_data = custom_prod(@results)
 		render :layout => "results"
 	end
 
