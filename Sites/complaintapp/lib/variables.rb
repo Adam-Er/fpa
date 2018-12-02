@@ -931,14 +931,12 @@ module Variables
         companies = {}
 
         results.each do |row|
-            companies[row["name"]] = Array.new(years.length, 0)
+            if (companies[row["name"]] == NIL)
+                companies[row["name"]] = Array.new(years.length, 0)
+            end
+            companies[row["name"]][row["year"]-years[0]] = row[attr]
         end
 
-        results.each do |row|
-            companies[row["name"]][row["year"]-years[0]] = row[attr]
-            puts row[attr]
-        end
-        puts "END"
         datablocks = []
         companies.keys.each_with_index do |key, i| 
             block = {}
