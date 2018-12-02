@@ -782,6 +782,11 @@ module Variables
 
     # Process custom query data for graphs, products only
     def custom_prod(results)
+        # Check for empty results set
+        if !(results.present?)
+            return
+        end
+
         # Get years for the x-axis labels
         year = results[0]["year"]
         years = [year]
@@ -850,6 +855,11 @@ module Variables
 
     # Process custom query data for graphs, products only (with date selection)
     def custom_prod_dated(results)
+        # Check for empty results set
+        if !(results.present?)
+            return
+        end
+
         # Get months and years for x-axis labels
         labels = []
         results.each do |row|
@@ -953,6 +963,11 @@ module Variables
 
     # Process custom query data for graphs, companies only
     def custom_comp(results)
+        # Check for empty results set
+        if !(results.present?)
+            return
+        end
+
         # Get years for the x-axis labels
         year = results[0]["year"]
         years = [year]
@@ -1023,6 +1038,11 @@ module Variables
 
     # Process custom query data for graphs, companies only (with date selection)
     def custom_comp_dated(results)
+        # Check for empty results set
+        if !(results.present?)
+            return
+        end
+
         # Get months and years for x-axis labels
         labels = []
         results.each do |row|
