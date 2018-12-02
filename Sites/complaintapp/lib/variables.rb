@@ -921,6 +921,38 @@ module Variables
         return datablocks
     end
 
+    def get_timeliness_data(results, attr) 
+        years = []
+
+        results.reverse.each do |row|
+            years |= [row["year"]]
+        end
+        
+        companies = {}
+
+        results.each do |row|
+            companies[row["name"]] = Array.new(years.length, 0)
+        end
+
+        results.each do |row|
+            companies[row["name"]][row["year"]-years[0]] = row[attr]
+            puts row[attr]
+        end
+        puts "END"
+        datablocks = []
+        companies.keys.each_with_index do |key, i| 
+            block = {}
+            block["data"] = companies[key]
+            block["x_axis"] = years
+            block["label"] = key
+            block["borderColor"] = get_color(i)
+            datablocks << block
+
+        end
+        return datablocks
+    end
+
+
     # Process custom query data for graphs, companies only
     def custom_comp(results)
         # Get years for the x-axis labels

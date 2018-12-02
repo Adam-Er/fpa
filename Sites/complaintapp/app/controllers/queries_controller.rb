@@ -570,6 +570,8 @@ class QueriesController < ApplicationController
 		partition_pct = "round(no_cnt/(no_cnt+yes_cnt),2)"
 		@cnt_results = ApplicationRecord.execQuery(timely_query(partition_cnt));
 		@pct_results = ApplicationRecord.execQuery(timely_query(partition_pct));
+		@graph_data1 = get_timeliness_data(@cnt_results, "untimely");
+		@graph_data2 = get_timeliness_data(@pct_results, "percent_untimely")
 		render :layout => "results"
 	end
 
