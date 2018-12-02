@@ -62,9 +62,9 @@
 <h3>Ranked by Percentage of Untimely Responses</h3>
 
 <% if @graph_data2.present? %>
-	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+	<canvas id="bar-chart-grouped2" width="800" height="450"></canvas>
 	<script>
-	new Chart(document.getElementById("bar-chart-grouped"), {
+	new Chart(document.getElementById("bar-chart-grouped2"), {
 	  type: 'bar',
 	  data: {
 	    labels:  <%= @graph_data2[0]["x_axis"] %>
