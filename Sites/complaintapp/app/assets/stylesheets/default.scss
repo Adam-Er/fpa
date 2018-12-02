@@ -43,6 +43,14 @@ select {
 	margin-bottom: 3.5vh;
 }
 
+.intro p {
+	margin-bottom: 0 !important;
+}
+.intro p span {
+	font-style: italic;
+	font-weight: bold;
+}
+
 #intro-container {
 	color: #EFEFEF;
 	background: rgba(17,44,60,0.9);

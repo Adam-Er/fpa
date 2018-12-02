@@ -59,7 +59,22 @@ class QueriesController < ApplicationController
 				else
 					companies += "or name = '"
 				end
-				companies += @@names[Integer(i[0])]["name"]
+				# Add logic to escape apostrophe
+				apostrophe_count = @@names[Integer(i[0])]["name"].count('\'')
+				if apostrophe_count > 0
+					name_fix = ""
+					@@names[Integer(i[0])]["name"].split('').each {|c| 
+    					if c == '\''
+    						name_fix += '\'\''
+    					else
+    						name_fix += c
+    					end
+					}
+					puts name_fix
+					companies += name_fix
+				else
+					companies += @@names[Integer(i[0])]["name"]
+				end
 				companies += "' "
 				num = num + 1
 			end
