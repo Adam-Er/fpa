@@ -570,8 +570,8 @@ class QueriesController < ApplicationController
 		partition_pct = "round(no_cnt/(no_cnt+yes_cnt),2)"
 		@cnt_results = ApplicationRecord.execQuery(timely_query(partition_cnt));
 		@pct_results = ApplicationRecord.execQuery(timely_query(partition_pct));
-		@graph_data1 = get_timeliness_data(@cnt_results, "untimely");
-		@graph_data2 = get_timeliness_data(@pct_results, "percent_untimely")
+		@graph_data1 = get_data_grouped_by_year(@cnt_results, "untimely");
+		@graph_data2 = get_data_grouped_by_year(@pct_results, "percent_untimely")
 		render :layout => "results"
 	end
 
@@ -580,6 +580,8 @@ class QueriesController < ApplicationController
 		partition_pct = "round(yes_cnt/(no_cnt+yes_cnt),2)"
 		@cnt_results = ApplicationRecord.execQuery(dispute_query(partition_cnt));
 		@pct_results = ApplicationRecord.execQuery(dispute_query(partition_pct));
+		@graph_data1 = get_data_grouped_by_year(@cnt_results, "disputed")
+		@graph_data2 = get_data_grouped_by_year(@pct_results, "percent_disputed")
 		render :layout => "results"
 	end
 

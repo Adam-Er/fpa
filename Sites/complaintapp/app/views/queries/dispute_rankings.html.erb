@@ -9,6 +9,36 @@
 
 
 <br>
+<% if @graph_data1.present? %>
+	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+	<script>
+	new Chart(document.getElementById("bar-chart-grouped"), {
+	  type: 'bar',
+	  data: {
+	    labels:  <%= @graph_data1[0]["x_axis"] %>
+	    ,
+	    datasets: [
+	    	<% @graph_data1.each do |block| %>
+	        {
+	            data: <%=block["data"]%>,
+	            label: '<%=block["label"]%>',
+	            borderColor: '<%=block["borderColor"]%>',
+	            fill: false
+	        },
+	        <% end %>
+	    ]
+	  },
+	  options: {
+	    title: {
+	      display: true,
+	      text: 'Yearly Number of Disputed Resolutions'
+	    }
+	  }
+	});
+	</script>
+	<br>
+<% end %>
+
 <b>Tabular Results:</b>
 <div class="table">
 	<table id="example" class="display">
@@ -33,6 +63,36 @@
 
 
 <br>
+<% if @graph_data2.present? %>
+	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+	<script>
+	new Chart(document.getElementById("bar-chart-grouped"), {
+	  type: 'bar',
+	  data: {
+	    labels:  <%= @graph_data2[0]["x_axis"] %>
+	    ,
+	    datasets: [
+	    	<% @graph_data2.each do |block| %>
+	        {
+	            data: <%=block["data"]%>,
+	            label: '<%=block["label"]%>',
+	            borderColor: '<%=block["borderColor"]%>',
+	            fill: false
+	        },
+	        <% end %>
+	    ]
+	  },
+	  options: {
+	    title: {
+	      display: true,
+	      text: 'Yearly Number of Disputed Resolutions'
+	    }
+	  }
+	});
+	</script>
+	<br>
+<% end %>
+
 <b>Tabular Results:</b>
 <div class="table">
 	<table id="example" class="display">

@@ -921,7 +921,7 @@ module Variables
         return datablocks
     end
 
-    def get_timeliness_data(results, attr) 
+    def get_data_grouped_by_year(results, attr) 
         years = []
 
         results.reverse.each do |row|
