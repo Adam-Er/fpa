@@ -8,8 +8,11 @@
 	new Chart(document.getElementById("line-chart"), {
 	  type: 'line',
 	  data: {
-	    labels:  <%= @graph_data[0]["x_axis"] %>
-	    ,
+	    labels: [
+	    	<% @graph_data[0]["x_axis"].each do |label| %>
+	    	<%= label %>,
+	    	<% end %>
+	    ],
 	    datasets: [
 	    	<% @graph_data.each do |block| %>
 	        {
