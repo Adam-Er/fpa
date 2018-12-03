@@ -585,10 +585,19 @@ module Variables
 
     # removed following segment from the top line of select query
     # "Row_Number() over (partition by Year order by Monthly_Average desc) as Ranking, "
+
+    # Use to add more data to table
+
+    # Default_Company_Refine = "
+    # select Name, Month, Month_Count, Monthly_Average, Year_Total, Year from
+    #     (select distinct name as Name, Month, Month_Count, mnthly_avg as Monthly_Average, yr_total as Year_Total, Year from ( "
+    # Default_Company_Refine2 = ")) order by Year desc, Month desc, Month_Count desc, Monthly_Average desc"
+
     Refine_results = "
-    select Name, Month, Month_Count, Monthly_Average, Year_Total, Year from
-        (select distinct name as Name, Month, Month_Count, mnthly_avg as Monthly_Average, yr_total as Year_Total, Year from ( "
-    Refine_results2 = ")) order by Year desc, Month desc, Month_Count desc, Monthly_Average desc"
+    select Row_Number() over (partition by Year order by Monthly_Average desc) as Ranking, Name, Year, Monthly_Average from
+        (select distinct name as Name, Year, mnthly_avg as Monthly_Average from ( "
+    Refine_results2 = ")) order by Year desc, Monthly_Average desc"
+
 
     # For Predefined Query #1
     def default_company_query(dated, query)
@@ -599,7 +608,23 @@ module Variables
         query = "(select * from camoen.complaint where ("
         names.each_with_index do |row, index|
             row.each_with_index do |value, ind|
-                query += "name = '" + value[1] + "' or "
+                # Check for apostrophes
+                apostrophe_count = value[1].count('\'')
+                if apostrophe_count < 1
+                    query += "name = '" + value[1] + "' or "
+                else
+                    query += "name = '"
+                    name_fix = ""
+                    @value[1].split('').each {|c| 
+                        if c == '\''
+                            name_fix += '\'\''
+                        else
+                            name_fix += c
+                        end
+                    }
+                    query += name_fix
+                    query += "' or "
+                end
             end
         end
         query = query.first(-3)
@@ -1031,6 +1056,7 @@ module Variables
             datablocks << block
             companies_index += 1
         end
+        puts datablocks
         return datablocks
     end
 

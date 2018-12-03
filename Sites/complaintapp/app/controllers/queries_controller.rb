@@ -11,18 +11,18 @@ class QueriesController < ApplicationController
 	end
 
 	def dashboard
-		name = session[:user]
-	  	pass = session[:password]
-	  	query = "(select * from camoen.users)"
-	  	query = ApplicationRecord.execQuery(query)
-	  	realName = query[0]["username"]
-	  	realPass = query[0]["password"]
-	  	@results = session[:user]
-	  	if (!(name == realName && pass == realPass))
-	  		@results = 5;
-	  		redirect_to '/login'
-	  	end
-	  	render :layout => "landing_page"
+		# name = session[:user]
+	 #  	pass = session[:password]
+	 #  	query = "(select * from camoen.users)"
+	 #  	query = ApplicationRecord.execQuery(query)
+	 #  	realName = query[0]["username"]
+	 #  	realPass = query[0]["password"]
+	 #  	@results = session[:user]
+	 #  	if (!(name == realName && pass == realPass))
+	 #  		@results = 5;
+	 #  		redirect_to '/login'
+	 #  	end
+		render :layout => "landing_page"
 
 	end
 	
@@ -70,7 +70,6 @@ class QueriesController < ApplicationController
     						name_fix += c
     					end
 					}
-					puts name_fix
 					companies += name_fix
 				else
 					companies += @@names[Integer(i[0])]["name"]
@@ -544,9 +543,7 @@ class QueriesController < ApplicationController
 		if (params[:cname].blank? && params[:type].blank?)
 			query = default_custom_query(dated, query, daterange, where)
 			if (dated == Company_no_dates)
-				puts query
 				query = Refine_results + query + Refine_results2
-				puts query
 				@results = ApplicationRecord.execQuery(query);
 				@custom_undated = custom_comp(@results)
 			else
@@ -590,7 +587,23 @@ class QueriesController < ApplicationController
 	def company_deep_dive
 		@company_name = params[:company_name]
 		query = "where name = '"
-		query += params[:company_name]
+
+		# Add logic to escape apostrophe
+		apostrophe_count = @company_name.count('\'')
+		if apostrophe_count > 0
+			name_fix = ""
+			@company_name.split('').each {|c| 
+				if c == '\''
+					name_fix += '\'\''
+				else
+					name_fix += c
+				end
+			}
+			query += name_fix
+		else 
+			query += params[:company_name]
+		end
+		
 		query += "'"
 		query = dive_query(query)
 		@results = ApplicationRecord.execQuery(query)
