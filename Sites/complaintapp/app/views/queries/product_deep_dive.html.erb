@@ -20,7 +20,7 @@ new Chart(document.getElementById("line-chart"), {
     	<% @datablocks.each do |block| %>
         {
             data: <%=block["data"]%>,
-            label: '<%=block["label"]%>',
+            label: '<%=block["label"].gsub("&", "and").gsub("'", "`")%>',
             borderColor: '<%=block["borderColor"]%>',
             fill: false
         },
