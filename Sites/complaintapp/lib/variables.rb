@@ -583,10 +583,12 @@ module Variables
         return new_query
     end
 
+    # removed following segment from the top line of select query
+    # "Row_Number() over (partition by Year order by Monthly_Average desc) as Ranking, "
     Refine_results = "
-    select Row_Number() over (partition by Year order by Monthly_Average desc) as Ranking, Name, Year, Monthly_Average from
-        (select distinct name as Name, Year, mnthly_avg as Monthly_Average from ( "
-    Refine_results2 = ")) order by Year desc, Monthly_Average desc"
+    select Name, Month, Month_Count, Monthly_Average, Year_Total, Year from
+        (select distinct name as Name, Month, Month_Count, mnthly_avg as Monthly_Average, yr_total as Year_Total, Year from ( "
+    Refine_results2 = ")) order by Year desc, Month desc, Month_Count desc, Monthly_Average desc"
 
     # For Predefined Query #1
     def default_company_query(dated, query)
@@ -776,7 +778,6 @@ module Variables
             datablocks << block
             years_index += 1
         end
-        puts datablocks
         return datablocks
     end
 
@@ -848,7 +849,6 @@ module Variables
             datablocks << block
             products_index += 1
         end
-        puts datablocks
         return datablocks
     end
 
@@ -927,7 +927,6 @@ module Variables
             datablocks << block
             products_index += 1
         end
-        puts datablocks
         return datablocks
     end
 
@@ -1032,7 +1031,6 @@ module Variables
             datablocks << block
             companies_index += 1
         end
-        puts datablocks
         return datablocks
     end
 
@@ -1110,7 +1108,6 @@ module Variables
             datablocks << block
             companies_index += 1
         end
-        puts datablocks
         return datablocks
     end
 

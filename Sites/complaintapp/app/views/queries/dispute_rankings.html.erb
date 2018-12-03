@@ -22,7 +22,7 @@
 	        {
 	            data: <%=block["data"]%>,
 	            label: '<%=block["label"]%>',
-	            borderColor: '<%=block["borderColor"]%>',
+	            backgroundColor: '<%=block["borderColor"]%>',
 	            fill: false
 	        },
 	        <% end %>
@@ -31,12 +31,13 @@
 	  options: {
 	    title: {
 	      display: true,
-	      text: 'Yearly Number of Disputed Resolutions'
+	      text: 'Yearly Number of Disputed Resolutions (Top 5 Worst Performers per Year)'
 	    }
 	  }
 	});
 	</script>
 	<br>
+	<p class="graph_note">*Only data from December is available for 2011.</p>
 <% end %>
 
 <b>Tabular Results:</b>
@@ -58,6 +59,7 @@
 		
 	</table>
 </div>
+<br>
 
 <h3>Ranked by Percentage of Disputed Resolutions</h3>
 
@@ -76,7 +78,7 @@
 	        {
 	            data: <%=block["data"]%>,
 	            label: '<%=block["label"]%>',
-	            borderColor: '<%=block["borderColor"]%>',
+	            backgroundColor: '<%=block["borderColor"]%>',
 	            fill: false
 	        },
 	        <% end %>
@@ -85,12 +87,13 @@
 	  options: {
 	    title: {
 	      display: true,
-	      text: 'Yearly Number of Disputed Resolutions'
+	      text: 'Yearly Percentage of Disputed Resolutions (Top 5 Worst Performers per Year)'
 	    }
 	  }
 	});
 	</script>
 	<br>
+	<p class="graph_note">*Only data from December is available for 2011.</p>
 <% end %>
 
 <b>Tabular Results:</b>

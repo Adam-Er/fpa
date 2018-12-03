@@ -544,7 +544,9 @@ class QueriesController < ApplicationController
 		if (params[:cname].blank? && params[:type].blank?)
 			query = default_custom_query(dated, query, daterange, where)
 			if (dated == Company_no_dates)
+				puts query
 				query = Refine_results + query + Refine_results2
+				puts query
 				@results = ApplicationRecord.execQuery(query);
 				@custom_undated = custom_comp(@results)
 			else
