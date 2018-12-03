@@ -20,13 +20,14 @@ new Chart(document.getElementById("line-chart"), {
     	<% @datablocks.each do |block| %>
         {
             data: <%=block["data"]%>,
-            label: '<%=block["label"].gsub("&", "and").gsub("'", "`")%>',
+            label: '<%=block["label"]%>',
             borderColor: '<%=block["borderColor"]%>',
             fill: false
         },
         <% end %>
     ]
-  },
+  }
+,
   options: {
     title: {
       display: true,

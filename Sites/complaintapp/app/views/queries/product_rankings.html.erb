@@ -17,7 +17,7 @@
 	    	<% @graph_data.each do |block| %>
 	        {
 	            data: <%=block["data"]%>,
-	            label: '<%=block["label"].gsub("&", "and").gsub("'", "`")%>',
+	            label: '<%=block["label"]%>',
 	            borderColor: '<%=block["borderColor"]%>',
 	            fill: false
 	        },
