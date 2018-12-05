@@ -615,7 +615,7 @@ module Variables
                 else
                     query += "name = '"
                     name_fix = ""
-                    @value[1].split('').each {|c| 
+                    value[1].split('').each {|c| 
                         if c == '\''
                             name_fix += '\'\''
                         else
@@ -694,11 +694,34 @@ module Variables
         query = "(select * from camoen.complaint where ("
         names.each_with_index do |row, index|
             row.each_with_index do |value, ind|
-                query += "name = '" + value[1] + "' or "
+                # Check for apostrophes
+                apostrophe_count = value[1].count('\'')
+                if apostrophe_count < 1
+                    query += "name = '" + value[1] + "' or "
+                else
+                    query += "name = '"
+                    name_fix = ""
+                    value[1].split('').each {|c| 
+                        if c == '\''
+                            name_fix += '\'\''
+                        else
+                            name_fix += c
+                        end
+                    }
+                    query += name_fix
+                    query += "' or "
+                end
             end
         end
-        query = query.first(-3)
-        query += ") "
+
+        if names.size > 0
+            query = query.first(-3)
+            query += ") "
+        else
+            query = ""
+            return query
+        end
+        
         #query += "and " + daterange + ")"
         query += "and " + where.last(-6) + ")"
         # Get ranking results
@@ -921,9 +944,11 @@ module Variables
                             data[ind] = 0
                             ind += 1
                     end
-                    if (row["year"].to_s[-2..-1] == labels[ind][-2..-1] &&
-                        row["month"].to_s == labels[ind].split("/")[0])
-                            data[ind] = row["month_count"]
+                    if (ind < labels.size)
+                        if (row["year"].to_s[-2..-1] == labels[ind][-2..-1] &&
+                            row["month"].to_s == labels[ind].split("/")[0])
+                                data[ind] = row["month_count"]
+                        end
                     end
                     ind += 1
                 end
@@ -1056,7 +1081,6 @@ module Variables
             datablocks << block
             companies_index += 1
         end
-        puts datablocks
         return datablocks
     end
 
@@ -1103,9 +1127,11 @@ module Variables
                             data[ind] = 0
                             ind += 1
                     end
-                    if (row["year"].to_s[-2..-1] == labels[ind][-2..-1] &&
-                        row["month"].to_s == labels[ind].split("/")[0])
-                            data[ind] = row["month_count"]
+                    if (ind < labels.size)
+                        if (row["year"].to_s[-2..-1] == labels[ind][-2..-1] &&
+                            row["month"].to_s == labels[ind].split("/")[0])
+                                data[ind] = row["month_count"]
+                        end
                     end
                     ind += 1
                 end

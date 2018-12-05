@@ -224,14 +224,13 @@ class QueriesController < ApplicationController
 		demnum = 0
 		if (!params[:demo].blank?)
 		 	if num < 1
-		 		demo += "where "
+		 		demo += "where ("
 		 	end
 		 	num = num + 1
 		 	if params[:demo].key?("1")
 		 		if num > 1
-					demo += "and "
+					demo += "and ("
 		 		end
-		 		demo += "("
 		 		if params[:demo]["1"] == "1"
 					demo += "tag like '%Older%' "
 			 	else
@@ -542,7 +541,9 @@ class QueriesController < ApplicationController
 		# If neither company or product are selected
 		if (params[:cname].blank? && params[:type].blank?)
 			query = default_custom_query(dated, query, daterange, where)
-			if (dated == Company_no_dates)
+			if query == ""
+				@results = {}
+			elsif (dated == Company_no_dates)
 				query = Refine_results + query + Refine_results2
 				@results = ApplicationRecord.execQuery(query);
 				@custom_undated = custom_comp(@results)
