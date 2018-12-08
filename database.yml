@@ -4,6 +4,10 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
+
+# This file is dropped in "Sites\complaintapp\config".
+# The development username and password must be valid in order to connect.
+
 default: &default
   adapter: oracle_enhanced
   database: oracle.cise.ufl.edu/orcl
