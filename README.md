@@ -10,6 +10,6 @@ This repository is for a webapp that aims to provide users with information abou
 ### Ruby on Rails Setup
 
 1. Download [Oracle Instant Client (32 bit)](https://www.oracle.com/technetwork/database/database-technologies/instant-client/downloads/index.html) and add it to the system PATH variables.
-2. Install Rails.  The [Ruby 2.3 Installer](http://railsinstaller.org/en) worked well.
+2. Install Rails.  The [Ruby 2.3 Installer](http://railsinstaller.org/en) worked well at the time of development.
 3. [Node.js](https://nodejs.org/en/download/) may also be required.
 4. Once all setup is complete, the server can be started via using the `rails s` command from Command Prompt or Git Bash (while inside the local directory).
