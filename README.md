@@ -1,4 +1,4 @@
-# Financial-Protection-Advisor
+# Financial Protection Advisor
 This repository is for a webapp that aims to provide users with information about the consumer-friendliness of financial institutions, products, and services.  The application was built with Ruby on Rails, Bootstrap, HTML/CSS, Oracle Database, and a hefty amount of SQL.
 
 ### Oracle Setup
