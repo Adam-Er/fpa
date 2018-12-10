@@ -24,8 +24,18 @@ This page includes descriptions and links to the results of six predefined queri
 <p align="center"><img src="https://raw.githubusercontent.com/Camoen/Financial-Protection-Advisor/master/readme/search_directory.PNG" alt="Financial Protection Advisor - Search Directory Page" width="80%" height="80%"></p>
 
 #### 1. Company Rankings
+This page is reached by clicking the "Company Rankings" button.  An SQL query is ran to determine the 5 least consumer-friendly companies for each year, as measured by their average monthly number of complaints.  Then, data for all years is gathered for each company that ever appears in this top 5.  Data is returned both as a line graph, allowing for easy visualization of the data, and as a table.  <i>To reduce clutter, every line or bar in the returned graphs can be toggled on or off by clicking its related label.</i>
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/complaint_rankings.png" alt="Financial Protection Advisor - Company Ranking Results" width="80%" height="80%"></p>
+
+
 #### 2. Product Rankings
+This page is reached by clicking the "Product Rankings" button.  The average monthly number of complaints is computed and returned for each of the financial products and services in the database.
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/product_rankings.png" alt="Financial Protection Advisor - Product Ranking Results" width="80%" height="80%"></p>
+
 #### 3. Timeliness Rankings
+This page is reached by clicking the "Timeliness Rankings" button.  There are two sections on this page, both of which return the five worst-performing companies from each year.  The first section ranks companies by their yearly number of untimely responses, and the second section ranks companies by the percentage of their responses that were untimely.
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/timeliness_rankings.png" alt="Financial Protection Advisor - Timeliness Ranking Results" width="80%" height="80%"></p>
+
 #### 4. Dispute Rankings
 #### 5. Company Deep Dive
 #### 6. Product Deep Dive
