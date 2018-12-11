@@ -81,14 +81,14 @@ The same companies are selected as in the previous results.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_company_only_dated.png" alt="Custom Search Results - Only Company Selections (dated)" width="80%" height=""></p>
 
 #### 2a) Only product selections (undated):
-This is the same as the Product Rankings results, but it includes only the selected products.
+This is the same as the Product Rankings results, but it includes only the selected products.<br>
 
 #### 2b) Only product selections (dated):
 In this example, all products and services have been selected.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_product_only_dated.png" alt="Custom Search Results - Product Only (dated)" width="80%" height=""></p>
 
 #### 3a) No selections (undated):
-This is the same as the Company Rankings results.
+This is the same as the Company Rankings results.<br>
 
 #### 3b) No selections (dated):
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_no_selections_dated.png" alt="Custom Search Results - No Selections (dated)" width="80%" height=""></p>
