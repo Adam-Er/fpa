@@ -15,6 +15,8 @@ This repository is for a web application that aims to provide users with informa
         * [Company Deep Dive](#company-deep-dive)
         * [Product Deep Dive](#product-deep-dive) 
     * [Custom Search](#custom-search)
+        * [Custom Search Form](#custom-search-form)
+        * [Custom Search Results](#custom-search-results) 
 
 
 ## Setup
