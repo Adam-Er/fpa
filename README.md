@@ -41,7 +41,7 @@ This page is reached by clicking the "Dispute Rankings" button.  There are two s
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/dispute_rankings.png" alt="Financial Protection Advisor - Dispute Ranking Results" width="80%" height=""></p>
 
 #### 5. Company Deep Dive
-This page is reached by selecting a company (in this case, EQUIFAX, INC.) and clicking the "Company Deep Dive" button.  Monthly counts of complaints received by the selected company are charted for each year of data available in the database.  This feature allows the user to look for trends in an institution's performance over time.  
+This page is reached by selecting a company (in this case, EQUIFAX, INC.) and clicking the "Company Deep Dive" button.  Note that the dropdown list allows the selection of any company that exists in the database—on the initial page load, this list is dynamically generated from the results of an SQL query.  Monthly counts of complaints received by the selected company are charted for each year of data available in the database.  This feature allows the user to look for trends in an institution's performance over time.  
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/company_deep_dive.png" alt="Financial Protection Advisor - Company Deep Dive Results" width="80%" height=""></p>
 
 #### 6. Product Deep Dive
@@ -49,4 +49,28 @@ This page is reached by selecting a product or service (in this case, Credit Rep
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/product_deep_dive.png" alt="Financial Protection Advisor - Product Deep Dive Results" width="80%" height=""></p>
 
 
-#### Custom Search
+### Custom Search
+This feature, located at the bottom of the search directory page, aims to provide users with the ability to filter for results that interest them.  Results may be returned in one of eight different ways, depending on the user's selected categories:
+
+<b>1) Only company selections:</b>  All data, for all selected companies, will be used in the generation of results.  
+
+<b>2) Only product/service selections:</b>  All data, for all selected products or services, will be used in the generation of results.  
+
+<b>3) No selections:</b>  All data will be used in the generation of results, but only the five least consumer-friendly companies for any given year will be returned.  If a company only appears in the "top 5 worst performers" for one year, all of its data (for every year) will still be returned.
+
+<b>4) Both company and product selections:</b>
+For every selected company, only complaints about the selected products or services will be used to generate results.  For instance, assume that "Banking", "American Express Company", and "Discover Bank" have all been selected.  When results are generated, the only complaints about American Express and Discover that will be utilized are those related to Banking.  All other complaints that have been lodged about the selected companies (for example, those about credit cards) will be ignored.
+
+<b>Date Range:</b>  Each of these four options can return "dated" or "undated" results, based on the user's selection of a date range—this effectively doubles the number of ways that results may be returned.  Undated results utilize all data in the database, and the returned results include an average monthly complaint number for every year.  Dated results return explicit monthly complaint counts for every month and year represented in the database.
+
+<b>Filters:</b>  The "Complaint Submission Method", "Demographic", and "State Selection" filters narrow down the data used when generating results, but don't lead to any further variation in the way results are returned.  For example, if "E-mail" and "Fax" are selected, only those complaints received via e-mail or fax will be considered.  Note that the "Older American" and "Service Member" demographics overlap, so the "Not Older American" and "Not Service Member" filters are provided in case the user wishes to completely ignore the complaints of either demographic.  The default behavior (when all filters are unselected) is to utilize all data in the database.  This also applies if, for example, submission method and demographic filters are chosen, but a state filter is not selected.  In this scenario, only complaints matching the submission method and demographic filters will be utilized, but data from all states will still be considered.
+
+#### Custom Search Form
+
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_search.png" alt="Financial Protection Advisor - Custom Search Form" width="80%" height=""></p>
+
+#### Custom Search Results
+<b>1a) Only company selections (undated)</b>
+2) Only product selections
+3) No selections
+4) Both company and product selections
