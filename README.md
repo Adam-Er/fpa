@@ -1,6 +1,23 @@
 # Financial Protection Advisor
 This repository is for a web application that aims to provide users with information about the consumer-friendliness of financial institutions, products, and services.  The application was built with Ruby on Rails, Bootstrap, HTML/CSS, Oracle Database, and a hefty amount of SQL.
 
+## Table of Contents
+* [Setup](#setup)
+    * [Oracle Setup](#oracle-setup)
+    * [Ruby on Rails Setup](#ruby-on-rails-setup)
+* [Application Features](#application-features)
+    * [Landing Page](#landing-page)
+    * [Search Directory](#search-directory)
+        * [Company Rankings](#company-rankings)
+        * [Product Rankings](#product-rankings)
+        * [Timeliness Rankings](#timeliness-rankings)
+        * [Dispute Rankings](#dispute-rankings)
+        * [Company Deep Dive](#company-deep-dive)
+        * [Product Deep Dive](#product-deep-dive) 
+    * [Custom Search](#custom-search)
+
+
+## Setup
 ### Oracle Setup
 
 1. The `database.yml` file (located at `setup/database.yml`) must include valid credentials for an Oracle database.  Drop this file in `Sites/complaintapp/config`.
@@ -20,31 +37,31 @@ This repository is for a web application that aims to provide users with informa
 <p align="center"><img src="https://raw.githubusercontent.com/Camoen/Financial-Protection-Advisor/master/readme/landing_page.PNG" alt="Financial Protection Advisor - Landing Page" width="80%" height=""></p>
 
 ### Search Directory
-This page includes descriptions and links to the results of six predefined queries (numbered 1-6, below).  Additionally, the [custom search](#custom-search) feature, which provides users with the ability to filter for specific data, is located at the bottom of the page.
+This page includes descriptions and links to the results of six predefined queries.  Additionally, the [custom search](#custom-search) feature, which provides users with the ability to filter for specific data, is located at the bottom of the page.
 <p align="center"><img src="https://raw.githubusercontent.com/Camoen/Financial-Protection-Advisor/master/readme/search_directory.PNG" alt="Financial Protection Advisor - Search Directory Page" width="80%" height=""></p>
 
-#### 1. Company Rankings
+#### Company Rankings
 This page is reached by clicking the "Company Rankings" button.  An SQL query is ran to determine the 5 least consumer-friendly companies for each year, as measured by their average monthly number of complaints.  Then, data for all years is gathered for each company that ever appears in this top 5.  Data is returned both as a line graph, allowing for easy visualization of the data, and as a table.  <i>To reduce clutter, every line or bar in the returned graphs can be toggled on or off by clicking its related label.</i>
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/complaint_rankings.png" alt="Financial Protection Advisor - Company Ranking Results" width="80%" height=""></p>
 
 
-#### 2. Product Rankings
+#### Product Rankings
 This page is reached by clicking the "Product Rankings" button.  The average monthly number of complaints is computed and returned for each of the financial products and services in the database.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/product_rankings.png" alt="Financial Protection Advisor - Product Ranking Results" width="80%" height=""></p>
 
-#### 3. Timeliness Rankings
+#### Timeliness Rankings
 This page is reached by clicking the "Timeliness Rankings" button.  There are two sections on this page, both of which return the five worst-performing companies from each year.  The first section ranks companies by their yearly number of untimely responses, and the second section ranks companies by the percentage of their responses that were untimely.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/timeliness_rankings.png" alt="Financial Protection Advisor - Timeliness Ranking Results" width="80%" height=""></p>
 
-#### 4. Dispute Rankings
+#### Dispute Rankings
 This page is reached by clicking the "Dispute Rankings" button.  There are two sections on this page, both of which return the five worst-performing companies from each year.  The first section ranks companies by their yearly number of disputed responses, and the second section ranks companies by the percentage of their responses that were disputed.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/dispute_rankings.png" alt="Financial Protection Advisor - Dispute Ranking Results" width="80%" height=""></p>
 
-#### 5. Company Deep Dive
+#### Company Deep Dive
 This page is reached by selecting a company (in this case, EQUIFAX, INC.) and clicking the "Company Deep Dive" button.  Note that the dropdown list allows the selection of any company that exists in the database—on the initial page load, this list is dynamically generated from the results of an SQL query.  Monthly counts of complaints received by the selected company are charted for each year of data available in the database.  This feature allows the user to look for trends in an institution's performance over time.  
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/company_deep_dive.png" alt="Financial Protection Advisor - Company Deep Dive Results" width="80%" height=""></p>
 
-#### 6. Product Deep Dive
+#### Product Deep Dive
 This page is reached by selecting a product or service (in this case, Credit Reporting) and clicking the "Product Deep Dive" button.  Monthly counts of complaints received about a particular product are charted for each year of data available in the database.  This feature allows the user to look for trends in a product's performance over time.  
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/product_deep_dive.png" alt="Financial Protection Advisor - Product Deep Dive Results" width="80%" height=""></p>
 
