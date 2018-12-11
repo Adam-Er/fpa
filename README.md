@@ -66,22 +66,35 @@ For every selected company, only complaints about the selected products or servi
 <b>Filters:</b>  The "Complaint Submission Method", "Demographic", and "State Selection" filters narrow down the data used when generating results, but don't lead to any further variation in the way results are returned.  For example, if "E-mail" and "Fax" are selected, only those complaints received via e-mail or fax will be considered.  Note that the "Older American" and "Service Member" demographics overlap, so the "Not Older American" and "Not Service Member" filters are provided in case the user wishes to completely ignore the complaints of either demographic.  The default behavior (when all filters are unselected) is to utilize all data in the database.  This also applies if, for example, submission method and demographic filters are chosen, but a state filter is not selected.  In this scenario, only complaints matching the submission method and demographic filters will be utilized, but data from all states will still be considered.
 
 #### Custom Search Form
-Similar to the Company Deep Dive dropdown list, the "Company Selection" category is dynamically populated when the page loads, to ensure that every company in the database is represented.
+Similar to the Company Deep Dive dropdown list, the "Company Selection" category is dynamically populated when the page loads, to ensure that every company in the database is represented.  The list is in alphabetical order but, due to the list's size, it's recommended to use `Ctrl+F` to locate a particular company.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_search.png" alt="Financial Protection Advisor - Custom Search Form" width="80%" height=""></p>
 
 #### Custom Search Results
-<b>1a) Only company selections (undated)</b>
+For all "dated" results, the full range of dates has been selected.  This range can be narrowed in accordance with the user's specific interests.
 
-<b>1b) Only company selections (dated)</b>
+<b>1a) Only company selections (undated):</b>
+The selected companies are "American Express Company", "Bank of America, National Association", "Discover Bank", "Equifax, Inc.", "Experian Information Solutions Inc.", and "Transunion Intermediate Holdings, Inc."
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_company_only_undated.png" alt="Custom Search Results - Only Company Selections (undated)" width="80%" height=""></p>
 
-<b>2a) Only product selections (undated)</b>
+<b>1b) Only company selections (dated):</b>
+The same companies are selected as in the previous results.
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_company_only_dated.png" alt="Custom Search Results - Only Company Selections (dated)" width="80%" height=""></p>
 
-<b>2b) Only product selections (dated)</b>
+<b>2a) Only product selections (undated):</b> This is the same as the Product Rankings results, but it includes only the selected products.
 
-<b>3a) No selections (undated)</b>
+<b>2b) Only product selections (dated):</b>
+In this example, all products and services have been selected.
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_product_only_dated.png" alt="Custom Search Results - Product Only (dated)" width="80%" height=""></p>
 
-<b>3b) No selections (dated)</b>
+<b>3a) No selections (undated):</b> This is the same as the Company Rankings results.
 
-<b>4a) Both company and product selections (undated)</b>
+<b>3b) No selections (dated):</b>
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_no_selections_dated.png" alt="Custom Search Results - No Selections (dated)" width="80%" height=""></p>
 
-<b>4b) Both company and product selections (dated)</b>
+<b>4a) Both company and product selections (undated):</b>
+The selected companies are "American Express Company", "Bank of America, National Association", "Discover Bank", "Equifax, Inc.", "Experian Information Solutions Inc.", and "Transunion Intermediate Holdings, Inc."  The selected products are "Credit Card" and "Credit Reporting"—only complaints about these two products will be considered in the results.
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_both_undated.png" alt="Custom Search Results - Company and Product Selections (undated)" width="80%" height=""></p>
+
+<b>4b) Both company and product selections (dated):</b>
+The same companies and products have been chosen as in the previous results.
+<p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_both_dated.png" alt="Custom Search Results - Company and Product Selections (dated)" width="80%" height=""></p>
