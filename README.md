@@ -66,11 +66,22 @@ For every selected company, only complaints about the selected products or servi
 <b>Filters:</b>  The "Complaint Submission Method", "Demographic", and "State Selection" filters narrow down the data used when generating results, but don't lead to any further variation in the way results are returned.  For example, if "E-mail" and "Fax" are selected, only those complaints received via e-mail or fax will be considered.  Note that the "Older American" and "Service Member" demographics overlap, so the "Not Older American" and "Not Service Member" filters are provided in case the user wishes to completely ignore the complaints of either demographic.  The default behavior (when all filters are unselected) is to utilize all data in the database.  This also applies if, for example, submission method and demographic filters are chosen, but a state filter is not selected.  In this scenario, only complaints matching the submission method and demographic filters will be utilized, but data from all states will still be considered.
 
 #### Custom Search Form
-
+Similar to the Company Deep Dive dropdown list, the "Company Selection" category is dynamically populated when the page loads, to ensure that every company in the database is represented.
 <p align="center"><img src="https://github.com/Camoen/Financial-Protection-Advisor/blob/master/readme/custom_search.png" alt="Financial Protection Advisor - Custom Search Form" width="80%" height=""></p>
 
 #### Custom Search Results
 <b>1a) Only company selections (undated)</b>
-2) Only product selections
-3) No selections
-4) Both company and product selections
+
+<b>1b) Only company selections (dated)</b>
+
+<b>2a) Only product selections (undated)</b>
+
+<b>2b) Only product selections (dated)</b>
+
+<b>3a) No selections (undated)</b>
+
+<b>3b) No selections (dated)</b>
+
+<b>4a) Both company and product selections (undated)</b>
+
+<b>4b) Both company and product selections (dated)</b>
